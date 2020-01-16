@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace webapi.Tests
+namespace QuantumComputingApi.Tests
 {
     public class UnitTest1
     {
