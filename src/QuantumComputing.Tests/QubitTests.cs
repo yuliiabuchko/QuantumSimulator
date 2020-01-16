@@ -17,13 +17,13 @@ namespace Lachesis.QuantumComputing.Tests
 		[TestMethod]
 		public void Qubit_Zero_IsZero()
 		{
-			Assert.AreEqual(Qubit.Zero.Vector, Vector<Complex>.Build.SparseOfArray(new Complex[] { Complex.One, Complex.Zero }));
+			Assert.AreEqual(Qubit.Zero.Register, Vector<Complex>.Build.SparseOfArray(new Complex[] { Complex.One, Complex.Zero }));
 		}
 
 		[TestMethod]
 		public void Qubit_One_IsOne()
 		{
-			Assert.AreEqual(Qubit.One.Vector, Vector<Complex>.Build.SparseOfArray(new Complex[] { Complex.Zero, Complex.One }));
+			Assert.AreEqual(Qubit.One.Register, Vector<Complex>.Build.SparseOfArray(new Complex[] { Complex.Zero, Complex.One }));
 		}
 
 		[TestMethod]

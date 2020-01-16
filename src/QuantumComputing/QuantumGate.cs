@@ -298,9 +298,14 @@ namespace Lachesis.QuantumComputing
 		/*
 		 * Operator to apply a quantum gate to a quantum register
 		 */
-		public static QuantumRegister operator *(QuantumGate quantumGate, QuantumRegister quantumRegister)
+		public static AbstractQuantumRegister operator *(QuantumGate quantumGate, QuantumRegisterVector quantumRegisterVector)
 		{
-			return new QuantumRegister(quantumGate.Matrix * quantumRegister.Vector);
+			return new QuantumRegisterVector(quantumGate.Matrix * quantumRegisterVector.Register);
+		}
+		
+		public static AbstractQuantumRegister operator *(QuantumGate quantumGate, QuantumRegisterArray quantumRegisterArray)
+		{
+			return new QuantumRegisterArray(quantumGate.Matrix * quantumRegisterArray.Register);
 		}
 
 		/*

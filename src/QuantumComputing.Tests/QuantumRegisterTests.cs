@@ -25,83 +25,83 @@ namespace Lachesis.QuantumComputing.Tests
 		[TestMethod]
 		public void QuantumRegister_FromInteger_IsValid()
 		{
-			Assert.AreEqual(new QuantumRegister(15), new QuantumRegister(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1));
+			Assert.AreEqual(new QuantumRegisterVector(15), new QuantumRegisterVector(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1));
 		}
 
 		[TestMethod]
 		public void QuantumRegister_FromIntegerWithBitCount_IsValid()
 		{
-			Assert.AreEqual(new QuantumRegister(7, 4), new QuantumRegister(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0));
+			Assert.AreEqual(new QuantumRegisterVector(7, 4), new QuantumRegisterVector(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0));
 		}
 
 		[TestMethod]
 		[ExpectedException(typeof(ArgumentException))]
 		public void QuantumRegister_FromIntegerWithLowBitCount_ThrowsArgumentException()
 		{
-			QuantumRegister quantumRegister = new QuantumRegister(7, 2);
+			QuantumRegisterVector quantumRegisterVector = new QuantumRegisterVector(7, 2);
 		}
 
 		[TestMethod]
 		public void QuantumRegister_FromQuantumRegisters_IsValid()
 		{
-			Assert.AreEqual(new QuantumRegister(Qubit.One, QuantumRegister.EPRPair), new QuantumRegister(0, 0, 0, 0, 1 / Math.Sqrt(2), 0, 0, 1 / Math.Sqrt(2)));
+			Assert.AreEqual(new QuantumRegisterVector(Qubit.One, QuantumRegisterVector.EPRPair), new QuantumRegisterVector(0, 0, 0, 0, 1 / Math.Sqrt(2), 0, 0, 1 / Math.Sqrt(2)));
 		}
 
 		[TestMethod]
 		public void QuantumRegister_FromVector_IsValid()
 		{
-			Assert.AreEqual(new QuantumRegister(QuantumRegister.EPRPair.Vector), QuantumRegister.EPRPair);
+			Assert.AreEqual(new QuantumRegisterVector(QuantumRegisterVector.EPRPair.Register), QuantumRegisterVector.EPRPair);
 		}
 
 		[TestMethod]
 		[ExpectedException(typeof(ArgumentException))]
 		public void QuantumRegister_FromVectorNotInAPowerOfTwoDimension_ThrowsArgumentException()
 		{
-			QuantumRegister quantumRegister = new QuantumRegister(Complex.One, Complex.Zero, Complex.One);
+			QuantumRegisterVector quantumRegisterVector = new QuantumRegisterVector(Complex.One, Complex.Zero, Complex.One);
 		}
 
 		[TestMethod]
 		public void QuantumRegister_CollapsePureState_StaysTheSame()
 		{
-			QuantumRegister zeroOne = new QuantumRegister(Qubit.Zero, Qubit.One);
+			QuantumRegisterVector zeroOne = new QuantumRegisterVector(Qubit.Zero, Qubit.One);
 			zeroOne.Collapse(QuantumRegisterTests.Random);
-			Assert.AreEqual(zeroOne, new QuantumRegister(Qubit.Zero, Qubit.One));
+			Assert.AreEqual(zeroOne, new QuantumRegisterVector(Qubit.Zero, Qubit.One));
 		}
 
 		[TestMethod]
 		public void QuantumRegister_CollapseEPRPair_Is00Or11()
 		{
-			QuantumRegister quantumRegister = QuantumRegister.EPRPair;
-			quantumRegister.Collapse(QuantumRegisterTests.Random);
-			Assert.IsTrue(quantumRegister.Equals(new QuantumRegister(Qubit.Zero, Qubit.Zero)) || quantumRegister.Equals(new QuantumRegister(Qubit.One, Qubit.One)));
+			QuantumRegisterVector quantumRegisterVector = QuantumRegisterVector.EPRPair;
+			quantumRegisterVector.Collapse(QuantumRegisterTests.Random);
+			Assert.IsTrue(quantumRegisterVector.Equals(new QuantumRegisterVector(Qubit.Zero, Qubit.Zero)) || quantumRegisterVector.Equals(new QuantumRegisterVector(Qubit.One, Qubit.One)));
 		}
 
 		[TestMethod]
 		public void QuantumRegister_CollapseWState_WithRandomMock_Is001()
 		{
-			QuantumRegister quantumRegister = QuantumRegister.WState;
+			QuantumRegisterVector quantumRegisterVector = QuantumRegisterVector.WState;
 			Random randomMock = Mock.Of<Random>();
 			Mock.Get(randomMock).Setup(random => random.NextDouble()).Returns(0.2);
-			quantumRegister.Collapse(randomMock);
-			Assert.IsTrue(quantumRegister.Equals(new QuantumRegister(Qubit.Zero, Qubit.Zero, Qubit.One)));
+			quantumRegisterVector.Collapse(randomMock);
+			Assert.IsTrue(quantumRegisterVector.Equals(new QuantumRegisterVector(Qubit.Zero, Qubit.Zero, Qubit.One)));
 		}
 
 		[TestMethod]
 		public void QuantumRegister_GetValue_IsValid()
 		{
-			QuantumRegister quantumRegister = new QuantumRegister(27);
+			QuantumRegisterVector quantumRegisterVector = new QuantumRegisterVector(27);
 
-			Assert.AreEqual(quantumRegister.GetValue(), 27);
-			Assert.AreEqual(quantumRegister.GetValue(1), 11);
-			Assert.AreEqual(quantumRegister.GetValue(1, 3), 5);
+			Assert.AreEqual(quantumRegisterVector.GetValue(), 27);
+			Assert.AreEqual(quantumRegisterVector.GetValue(1), 11);
+			Assert.AreEqual(quantumRegisterVector.GetValue(1, 3), 5);
 		}
 
 		[TestMethod]
 		[ExpectedException(typeof(ArgumentException))]
 		public void QuantumRegister_GetValueWithOverflow_ThrowsArgumentException()
 		{
-			QuantumRegister quantumRegister = new QuantumRegister(5);
-			quantumRegister.GetValue(1, 3);
+			QuantumRegisterVector quantumRegisterVector = new QuantumRegisterVector(5);
+			quantumRegisterVector.GetValue(1, 3);
 		}
 
 		[TestMethod]

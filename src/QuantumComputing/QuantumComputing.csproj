@@ -45,11 +45,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractQuantumRegister.cs" />
     <Compile Include="Mathematics\LinearAlgebra.cs" />
     <Compile Include="Mathematics\Numerics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuantumGate.cs" />
-    <Compile Include="QuantumRegister.cs" />
+    <Compile Include="QuantumRegisterArray.cs" />
+    <Compile Include="QuantumRegisterVector.cs" />
     <Compile Include="Qubit.cs" />
   </ItemGroup>
   <ItemGroup>
