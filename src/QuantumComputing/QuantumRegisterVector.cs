@@ -28,7 +28,7 @@ namespace Lachesis.QuantumComputing
 		
 		public override void SetRegisterAt(int index, Complex value)
 		{
-			Register.At(index, value);
+			Register[index] = value;
 		}
 
 		/*
@@ -220,5 +220,12 @@ namespace Lachesis.QuantumComputing
 			return this.Register.Equals(quantumRegisterVector.Register);
 		}
 
+		/*
+		 * Serves as a hash function for a quantum register
+		 */
+		public override int GetHashCode()
+		{
+			return this.Register.GetHashCode();
+		}
 	}
 }
