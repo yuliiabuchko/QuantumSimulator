@@ -6,6 +6,7 @@
 
 using System;
 using System.Numerics;
+using QuantumComputing;
 
 namespace Lachesis.QuantumComputing
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 
-namespace Lachesis.QuantumComputing
+namespace QuantumComputing
 {
     public abstract class QuantumRegisterInterface
     {
