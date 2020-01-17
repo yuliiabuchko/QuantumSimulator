@@ -13,7 +13,7 @@ using System.Numerics;
 
 namespace Lachesis.QuantumComputing
 {
-	public class QuantumRegisterVector : AbstractQuantumRegister
+	public class QuantumRegisterVector : QuantumRegisterInterface
 	{
 		/*
 		 * Vector representation of a quantum register
@@ -31,29 +31,29 @@ namespace Lachesis.QuantumComputing
 			Register.At(index, value);
 		}
 
-		/*
-		 * Constructor from integer
-		 */
-		public QuantumRegisterVector(int value, int bitCount = 0) : this(Mathematics.LinearAlgebra.VectorFromInteger(value, bitCount)) { }
-
-		/*
-		 * Constructor from other quantum registers
-		 */
-		public QuantumRegisterVector(params QuantumRegisterVector[] quantumRegisters) : this((IEnumerable<QuantumRegisterVector>)quantumRegisters) { }
-
-		/*
-		 * Constructor from enumerable of other quantum registers
-		 */
-		public QuantumRegisterVector(IEnumerable<QuantumRegisterVector> quantumRegisters)
-		{
-			this.Register = quantumRegisters.Aggregate(Vector<Complex>.Build.Sparse(1, Complex.One), (vector, quantumRegister) => Mathematics.LinearAlgebra.CartesianProduct(vector, quantumRegister.Register));
-		}
-
+		// /*
+		//  * Constructor from integer
+		//  */
+		// public QuantumRegisterVector(int value, int bitCount = 0) : this(Mathematics.LinearAlgebra.VectorFromInteger(value, bitCount)) { }
+		// //
+		// /*
+		// //  * Constructor from other quantum registers
+		// //  */
+		// public QuantumRegisterVector(params QuantumRegisterVector[] quantumRegisters) : this((IEnumerable<QuantumRegisterVector>)quantumRegisters) { }
+		//
+		// // /*
+		// //  * Constructor from enumerable of other quantum registers
+		// //  */
+		// public QuantumRegisterVector(IEnumerable<QuantumRegisterVector> quantumRegisters)
+		// {
+		// 	this.Register = quantumRegisters.Aggregate(Vector<Complex>.Build.Sparse(1, Complex.One), (vector, quantumRegister) => Mathematics.LinearAlgebra.CartesianProduct(vector, quantumRegister.Register));
+		// }
+		
 		/*
 		 * Constructor from probability amplitudes
 		 */
 		public QuantumRegisterVector(params Complex[] array) : this((IEnumerable<Complex>)array) { }
-
+		
 		/*
 		 * Constructor from enumerable of probability amplitudes
 		 */
@@ -77,7 +77,7 @@ namespace Lachesis.QuantumComputing
 		/*
 		 * Normalizes a quantum register
 		 */
-		protected override void Normalize()
+		public override void Normalize()
 		{
 			// Normalize magnitude
 			double magnitudeFactor = Math.Sqrt(this.Register.Aggregate(0.0, (factor, amplitude) => factor + amplitude.MagnitudeSquared()));
