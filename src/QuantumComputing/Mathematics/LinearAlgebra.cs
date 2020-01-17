@@ -31,7 +31,7 @@ namespace Lachesis.QuantumComputing.Mathematics
 		}
 
 		/*
-		 * Register representation of an integer
+		 * Vector representation of an integer
 		 */
 		public static Vector<Complex> VectorFromInteger(int value, int bitCount = 0)
 		{

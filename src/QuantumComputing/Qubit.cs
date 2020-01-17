@@ -9,7 +9,7 @@ using System.Numerics;
 
 namespace Lachesis.QuantumComputing
 {
-	public class Qubit : QuantumRegisterVector
+	public class Qubit : QuantumRegister
 	{
 		/*
 		 * Probability amplitude for state |0>
@@ -18,11 +18,11 @@ namespace Lachesis.QuantumComputing
 		{
 			get
 			{
-				return this.getRegisterAt(0);
+				return this.Vector.At(0);
 			}
 			private set
 			{
-				this.setRegisterAt(0, value);
+				this.Vector.At(0, value);
 			}
 		}
 
@@ -33,11 +33,11 @@ namespace Lachesis.QuantumComputing
 		{
 			get
 			{
-				return this.getRegisterAt(1);
+				return this.Vector.At(1);
 			}
 			private set
 			{
-				this.setRegisterAt(1, value);
+				this.Vector.At(1, value);
 			}
 		}
 
