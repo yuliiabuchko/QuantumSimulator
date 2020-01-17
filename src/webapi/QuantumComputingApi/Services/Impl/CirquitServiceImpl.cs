@@ -18,7 +18,7 @@ namespace QuantumComputingApi.Services.Impl {
             _mapper = mapper;
         }
 
-        public async Task<ICirquitDto> CreateCirquitHandler(ICirquitDto cirquitDto) {
+        public async Task<ICirquitDto<ICirquitElementDto, IConnectionDto>> CreateCirquitHandler(ICirquitDto<ICirquitElementDto, IConnectionDto> cirquitDto) {
             var dao = _mapper.MapCirquitToDao(cirquitDto);
             var created = await _cirquitRepository.CreateCirquit(dao);
             if(created == null) {
@@ -39,11 +39,11 @@ namespace QuantumComputingApi.Services.Impl {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<ICirquitDto>> GetAllCirquitsHandler() {
+        public async Task<IEnumerable<ICirquitDto<ICirquitElementDto, IConnectionDto>>> GetAllCirquitsHandler() {
             return (await _cirquitRepository.FindAllCirquits()).Select(dao => _mapper.MapCirquitToDto(dao));
         }
 
-        public async Task<ICirquitDto> GetCirquitHandler(Guid Id) {
+        public async Task<ICirquitDto<ICirquitElementDto, IConnectionDto>> GetCirquitHandler(Guid Id) {
         var found = await _cirquitRepository.FindCirquit(Id);
 
             if(found == null) {
@@ -53,7 +53,7 @@ namespace QuantumComputingApi.Services.Impl {
             return _mapper.MapCirquitToDto(found);
         }
 
-        public async Task<ICirquitDto> UpdateCirquitHandler(Guid Id, ICirquitDto cirquitDto) {
+        public async Task<ICirquitDto<ICirquitElementDto, IConnectionDto>> UpdateCirquitHandler(Guid Id, ICirquitDto<ICirquitElementDto, IConnectionDto> cirquitDto) {
             var found = await _cirquitRepository.FindCirquit(Id);
             if(found == null) {
                 throw new ApplicationException("Error while trying to get resource"){};

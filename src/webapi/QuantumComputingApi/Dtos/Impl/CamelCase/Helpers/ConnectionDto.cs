@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace QuantumComputingApi.Dtos.Impl.CamelCase {
+namespace QuantumComputingApi.Dtos.Impl.CamelCase.Helpers {
     public class ConnectionDto : IConnectionDto {
         [JsonProperty(PropertyName = "idLeft")]
         public string IdLeft { get; set; }

@@ -24,7 +24,7 @@ namespace QuantumComputingApi.Formatters {
 
         protected override bool CanReadType(Type type) {
 
-            if (type == typeof(ICirquitDto) || type.IsSubclassOf(typeof(ICirquitDto))) {
+            if (type == typeof(ICirquitDto<ICirquitElementDto, IConnectionDto>) || type.IsSubclassOf(typeof(ICirquitDto<ICirquitElementDto, IConnectionDto>))) {
                 return base.CanReadType(type);
             }
             return false;

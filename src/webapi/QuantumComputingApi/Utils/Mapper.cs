@@ -5,19 +5,22 @@ using QuantumComputingApi.Dtos.Producer;
 
 namespace QuantumComputingApi.Utils
 {
-    public class Mapper
+    public class Mapper<T, U, Z>
+        where T : ICirquitElementDto
+        where U : IConnectionDto
+        where Z : ICirquitDto<T, U>
     {
-        private readonly DtoProducerBase _dtoProducer;
+        private readonly DtoProducerBase<T,U,Z> _dtoProducer;
 
-        public Mapper(DtoProducerBase dtoProducer) {
+        public Mapper(DtoProducerBase<T,U,Z> dtoProducer) {
             _dtoProducer = dtoProducer;
         }
 
-        public ICirquitDto MapCirquitToDto(CirquitDao cirquitDao) {
+        public ICirquitDto<ICirquitElementDto, IConnectionDto> MapCirquitToDto(CirquitDao cirquitDao) {
             throw new NotImplementedException();
         }
 
-        public CirquitDao MapCirquitToDao (ICirquitDto cirquitDto) {
+        public CirquitDao MapCirquitToDao (ICirquitDto<ICirquitElementDto, IConnectionDto> cirquitDto) {
             throw new NotImplementedException();
         }
     }

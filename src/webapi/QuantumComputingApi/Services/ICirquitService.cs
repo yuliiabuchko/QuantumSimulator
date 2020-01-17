@@ -5,10 +5,10 @@ using System;
 
 namespace QuantumComputingApi.Services {
     public interface ICirquitService {
-        Task<IEnumerable<ICirquitDto>> GetAllCirquitsHandler();
-        Task<ICirquitDto> GetCirquitHandler(Guid Id);
-        Task<ICirquitDto> CreateCirquitHandler(ICirquitDto cirquitDto);
-        Task<ICirquitDto> UpdateCirquitHandler(Guid Id, ICirquitDto cirquitDto);
+        Task<IEnumerable<ICirquitDto<ICirquitElementDto, IConnectionDto>>> GetAllCirquitsHandler();
+        Task<ICirquitDto<ICirquitElementDto, IConnectionDto>> GetCirquitHandler(Guid Id);
+        Task<ICirquitDto<ICirquitElementDto, IConnectionDto>> CreateCirquitHandler(ICirquitDto<ICirquitElementDto, IConnectionDto> cirquitDto);
+        Task<ICirquitDto<ICirquitElementDto, IConnectionDto>> UpdateCirquitHandler(Guid Id, ICirquitDto<ICirquitElementDto, IConnectionDto> cirquitDto);
         Task DeleteCirquitHandler(Guid Id);
         Task<ICirquitResultDto> ExecuteCirquitHandler(Guid Id);
     }

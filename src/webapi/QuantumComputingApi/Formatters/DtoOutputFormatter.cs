@@ -15,9 +15,9 @@ using QuantumComputingApi.Dtos.Producer;
 namespace QuantumComputingApi.Formatters {
     public class DtoOutputFormatter : TextOutputFormatter {
 
-        private readonly IDtoSerializer _dtoSerializer;
-        public DtoOutputFormatter(DtoProducerBase dtoProducer) {
-            _dtoSerializer = dtoProducer.ProduceDtoSerializer()
+        private readonly IDtoSerializer<ICirquitElementDto, IConnectionDto, ICirquitDto<ICirquitElementDto, IConnectionDto>> _dtoSerializer;
+        public DtoOutputFormatter(IDtoProducer<ICirquitElementDto, IConnectionDto, ICirquitDto<ICirquitElementDto, IConnectionDto>> dtoProducer) {
+            _dtoSerializer = dtoProducer.ProduceDtoSerializer();
 
             SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("application/json"));
             SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("text/json"));
@@ -27,7 +27,7 @@ namespace QuantumComputingApi.Formatters {
         }
 
         protected override bool CanWriteType(Type type) {
-            if (typeof(ICirquitDto).IsAssignableFrom(type)) {
+            if (typeof(ICirquitDto<ICirquitElementDto, IConnectionDto>).IsAssignableFrom(type)) {
                 return base.CanWriteType(type);
             }
             return false;
@@ -37,11 +37,12 @@ namespace QuantumComputingApi.Formatters {
             var response = context.HttpContext.Response;
             var serialized = "";
 
-            if (context.Object is ICirquitDto) {
-                var contact = context.Object as ICirquitDto;
-                serialized = 
+            if (context.Object is ICirquitDto<ICirquitElementDto, IConnectionDto>) {
+                var cirquit = context.Object as ICirquitDto<ICirquitElementDto, IConnectionDto>;
+
+                serialized = await _dtoSerializer.SerializeToText(cirquit);
             }
-            await response.WriteAsync(buffer.ToString());
+            await response.WriteAsync(serialized);
         }
     }
 }

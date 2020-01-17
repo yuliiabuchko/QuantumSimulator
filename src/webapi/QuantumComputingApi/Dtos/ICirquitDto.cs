@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 
 namespace QuantumComputingApi.Dtos {
-    public interface ICirquitDto {
-        IEnumerable<ICirquitElementDto> Elements { get; set; }
-        IEnumerable <IConnectionDto> Connections {get; set; }
+    public interface ICirquitDto<out T, out U> 
+        where T : ICirquitElementDto
+        where U : IConnectionDto
+    {
+        IEnumerable<T> Elements { get; }
+        IEnumerable <U> Connections { get; }
     }
 }
