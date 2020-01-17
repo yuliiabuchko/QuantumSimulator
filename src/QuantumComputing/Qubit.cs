@@ -22,11 +22,11 @@ namespace Lachesis.QuantumComputing
 		{
 			get
 			{
-				return this._register.getRegisterAt(0);
+				return this._register.GetRegisterAt(0);
 			}
 			private set
 			{
-				this._register.setRegisterAt(0, value);
+				this._register.SetRegisterAt(0, value);
 			}
 		}
 
@@ -37,11 +37,11 @@ namespace Lachesis.QuantumComputing
 		{
 			get
 			{
-				return this._register.getRegisterAt(1);
+				return this._register.GetRegisterAt(1);
 			}
 			private set
 			{
-				this._register.setRegisterAt(1, value);
+				this._register.SetRegisterAt(1, value);
 			}
 		}
 

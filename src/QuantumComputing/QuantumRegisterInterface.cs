@@ -10,11 +10,9 @@ namespace Lachesis.QuantumComputing
         public abstract int GetValue(int portionStart = 0, int portionLength = 0);
         public abstract override string ToString();
         public abstract override bool Equals(object obj);
-        public abstract bool AlmostEquals(object obj);
-        public abstract override int GetHashCode();
 
-        public abstract Complex getRegisterAt(int index);
-        public abstract void setRegisterAt(int index, Complex value);
+        public abstract Complex GetRegisterAt(int index);
+        public abstract void SetRegisterAt(int index, Complex value);
         public object Register;
 
     }

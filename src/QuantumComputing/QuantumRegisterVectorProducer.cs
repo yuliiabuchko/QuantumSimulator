@@ -4,21 +4,21 @@ using MathNet.Numerics.LinearAlgebra;
 
 namespace Lachesis.QuantumComputing
 {
-    class QuantumRegisterProducerBaseArrayImpl : QuantumRegisterProducerBase
+    class QuantumRegisterVectorProducer : QuantumRegisterProducerBase
     {
         public override QuantumRegisterInterface ProduceRegister(params Complex[] array)
         {
-            return new QuantumRegisterArray(array);
+            return new QuantumRegisterVector(array);
         }
         
         public override QuantumRegisterInterface ProduceRegister(IEnumerable<Complex> enumerable)
         {
-            return new QuantumRegisterArray(enumerable);
+            return new QuantumRegisterVector(enumerable);
         }
         
         public override QuantumRegisterInterface ProduceRegister(Vector<Complex> register)
         {
-            return new QuantumRegisterArray(register);
+            return new QuantumRegisterVector(register);
         }
     }
 }
