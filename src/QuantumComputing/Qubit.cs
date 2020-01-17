@@ -9,8 +9,12 @@ using System.Numerics;
 
 namespace Lachesis.QuantumComputing
 {
-	public class Qubit : QuantumRegisterVector
+	public class Qubit
 	{
+
+		private QuantumRegisterInterface _register;
+
+		private QuantumRegisterProducerBase _producer;
 		/*
 		 * Probability amplitude for state |0>
 		 */
@@ -18,11 +22,11 @@ namespace Lachesis.QuantumComputing
 		{
 			get
 			{
-				return this.getRegisterAt(0);
+				return this._register.getRegisterAt(0);
 			}
 			private set
 			{
-				this.setRegisterAt(0, value);
+				this._register.setRegisterAt(0, value);
 			}
 		}
 
@@ -33,36 +37,30 @@ namespace Lachesis.QuantumComputing
 		{
 			get
 			{
-				return this.getRegisterAt(1);
+				return this._register.getRegisterAt(1);
 			}
 			private set
 			{
-				this.setRegisterAt(1, value);
+				this._register.setRegisterAt(1, value);
 			}
 		}
 
 		/*
 		 * Constructor from probability amplitudes
 		 */
-		public Qubit(Complex zeroAmplitude, Complex oneAmplitude) : base(zeroAmplitude, oneAmplitude) { }
-
-		/*
-		 * Constructor from parts of probability amplitudes
-		 */
-		public Qubit(double zeroAmplitudeReal, double zeroAmplitudeImaginary, double oneAmplitudeReal, double oneAmplitudeImaginary) : base(new Complex(zeroAmplitudeReal, zeroAmplitudeImaginary), new Complex(oneAmplitudeReal, oneAmplitudeImaginary)) { }
-
-		/*
-		 * Constructor from Bloch sphere coordinates
-		 */
-		public Qubit(double colatitude, double longitude) : base(Math.Cos(colatitude / 2), Math.Sin(colatitude / 2) * Mathematics.Numerics.ComplexExp(Complex.ImaginaryOne * longitude)) { }
-
+		public Qubit(Complex zeroAmplitude, Complex oneAmplitude, QuantumRegisterProducerBase producer)
+		{
+			_register = producer.ProduceRegister(zeroAmplitude, oneAmplitude);
+			_producer = producer;
+		}
+		
 		/*
 		 * Normalizes a qubit
 		 */
-		protected override void Normalize()
+		protected void Normalize()
 		{
 			// Normalize magnitude
-			base.Normalize();
+			_register.Normalize();
 
 			// Normalize phase
 			if (this.ZeroAmplitude.Phase != 0)
@@ -75,23 +73,18 @@ namespace Lachesis.QuantumComputing
 		/*
 		 * |0>
 		 */
-		public static Qubit Zero
+		public static Qubit Zero(QuantumRegisterProducerBase producer)
 		{
-			get
-			{
-				return new Qubit(Complex.One, Complex.Zero);
-			}
-		}
+			return new Qubit(Complex.One, Complex.Zero, producer);
+		} 
 
 		/*
 		 * |1>
 		 */
-		public static Qubit One
+		
+		public static Qubit One(QuantumRegisterProducerBase producer)
 		{
-			get
-			{
-				return new Qubit(Complex.Zero, Complex.One);
-			}
+			return new Qubit(Complex.Zero, Complex.One, producer);
 		}
 	}
 }

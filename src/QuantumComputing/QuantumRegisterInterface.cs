@@ -3,9 +3,9 @@ using System.Numerics;
 
 namespace Lachesis.QuantumComputing
 {
-    public abstract class AbstractQuantumRegister
+    public abstract class QuantumRegisterInterface
     {
-        protected abstract void Normalize();
+        public abstract void Normalize();
         public abstract void Collapse(Random random);
         public abstract int GetValue(int portionStart = 0, int portionLength = 0);
         public abstract override string ToString();
