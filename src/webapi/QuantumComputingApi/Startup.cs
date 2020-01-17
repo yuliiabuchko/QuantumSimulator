@@ -10,6 +10,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using QuantumComputingApi.Dtos.Producer;
+using QuantumComputingApi.Dtos.Producer.Impl;
+using QuantumComputingApi.Utils;
+using QuantumComputingApi.Services;
+using QuantumComputingApi.Services.Impl;
 
 namespace QuantumComputingApi
 {
@@ -26,6 +31,11 @@ namespace QuantumComputingApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSingleton<DtoProducerBase, SnakeCaseDtoProducer>();
+            services.AddSingleton<ICirquitService, CirquitServiceImpl>();
+            services.AddSingleton<Mapper> (
+                sp =>  new Mapper(sp.GetRequiredService<DtoProducerBase>())
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
