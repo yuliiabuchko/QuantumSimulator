@@ -1,8 +1,4 @@
-﻿// /*
-//  * Quantum.NET
-//  * A library to manipulate qubits and simulate quantum circuits
-//  * Author: Pierre-Henry Baudin
-//  */
+﻿
 
 // using MathNet.Numerics.LinearAlgebra;
 // using Microsoft.VisualStudio.TestTools.UnitTesting;
