@@ -19,7 +19,7 @@ namespace BattleShips
                 }
                 if (input.Equals("1", StringComparison.OrdinalIgnoreCase))
                 {
-                    BatleShipGame game = new JapanBattleShipGame(new SimpleConcreteFactory());
+                    BatleShipGame game = new JapanBattleShipGame(new QuantumConcreteFactory());
                     game.Play();
                 }
                 //Console.Clear();
