@@ -302,11 +302,6 @@ namespace Lachesis.QuantumComputing
 		{
 			return new QuantumRegisterVector(quantumGate.Matrix * quantumRegisterVector.Register);
 		}
-		
-		public static QuantumRegisterInterface operator *(QuantumGate quantumGate, QuantumRegisterArray quantumRegisterArray)
-		{
-			return new QuantumRegisterArray(quantumGate.Matrix * quantumRegisterArray.Register);
-		}
 
 		/*
 		 * String representation of a quantum gate
