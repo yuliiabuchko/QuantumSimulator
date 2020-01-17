@@ -1,11 +1,13 @@
+using QuantumComputingApi.Dtos.Impl.CamelCase;
+
 namespace QuantumComputingApi.Dtos.Producer.Impl {
     public class CamelCaseDtoProducer : DtoProducerBase {
         public override ICirquitDto ProduceCirquitDto() {
-            throw new System.NotImplementedException();
+            return new CirquitDto();
         }
 
         public override ICirquitResultDto ProduceCirquitResultDto() {
-            throw new System.NotImplementedException();
+            return new CirquitResultDto();
         }
     }
 }

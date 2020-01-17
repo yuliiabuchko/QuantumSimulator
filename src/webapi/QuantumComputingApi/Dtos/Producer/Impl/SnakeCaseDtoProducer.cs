@@ -1,11 +1,13 @@
+using QuantumComputingApi.Dtos.Impl.SnakeCase;
+
 namespace QuantumComputingApi.Dtos.Producer.Impl {
     public class SnakeCaseDtoProducer : DtoProducerBase {
         public override ICirquitDto ProduceCirquitDto() {
-            throw new System.NotImplementedException();
+            return new SnakeCaseCirquitDto();
         }
 
         public override ICirquitResultDto ProduceCirquitResultDto() {
-            throw new System.NotImplementedException();
+            return new SnakeCaseCirquitResultDto();
         }
     }
 }
