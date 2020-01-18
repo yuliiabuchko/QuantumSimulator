@@ -11,7 +11,7 @@ using System.Net;
 
 namespace QuantumComputingApi.Controllers {
     [ApiController]
-    [Route("/cirquits")]
+    [Route("/cirquit")]
     public class CirquitController : ControllerBase {
 
         private readonly ICirquitService _cirquitService;
@@ -21,14 +21,14 @@ namespace QuantumComputingApi.Controllers {
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ICirquitDto<ICirquitElementDto, IConnectionDto>>>> GetAllCirquits () {
-            var result = await _cirquitService.GetAllCirquitsHandler();
+        public IActionResult GetAllCirquits () {
+            var result = _cirquitService.GetAllCirquitsHandler().Result;
 
             return new JsonResult(result){ StatusCode = (int)HttpStatusCode.OK };
         }
 
         [HttpGet]
-        [Route("/{Uuid}")]
+        [Route("{Uuid}")]
         public async Task<ActionResult<ICirquitDto<ICirquitElementDto, IConnectionDto>>> GetCirquit(
             [FromRoute][Required] Guid Uuid
         ) {
@@ -47,7 +47,7 @@ namespace QuantumComputingApi.Controllers {
         }
 
         [HttpPut]
-        [Route("/{Uuid}")]
+        [Route("{Uuid}")]
         public async Task<ActionResult> UpdateCirquit(
             [FromRoute][Required] Guid Uuid,
             [FromBody][Required] ICirquitDto<ICirquitElementDto, IConnectionDto> cirquitDto
@@ -58,7 +58,7 @@ namespace QuantumComputingApi.Controllers {
         }
 
         [HttpDelete]
-        [Route("/{Uuid}")]
+        [Route("{Uuid}")]
         public async Task<ActionResult> DeleteCirquit(
             [FromRoute][Required] Guid Uuid
         ) {
@@ -68,7 +68,7 @@ namespace QuantumComputingApi.Controllers {
         }
 
         [HttpGet]
-        [Route("/{Uuid}/execute")]
+        [Route("{Uuid}/execute")]
         public async Task<ActionResult<ICirquitResultDto>> ExecuteCirquit(
             [FromRoute][Required] Guid Uuid
         ) {
