@@ -1,23 +1,21 @@
 using System;
-using System.Collections.Generic;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
-using Newtonsoft.Json;
 using QuantumComputingApi.Dtos;
 using QuantumComputingApi.Dtos.Serializers;
-using QuantumComputingApi.Dtos.Producer;
 
 namespace QuantumComputingApi.Formatters {
-    public class DtoOutputFormatter : TextOutputFormatter {
+    public class DtoOutputFormatter<T, U, Z> : TextOutputFormatter
+    where T : ICirquitElementDto
+    where U : IConnectionDto
+    where Z : class, ICirquitDto<T, U> {
 
-        private readonly IDtoSerializer<ICirquitElementDto, IConnectionDto, ICirquitDto<ICirquitElementDto, IConnectionDto>> _dtoSerializer;
-        public DtoOutputFormatter(IDtoProducer<ICirquitElementDto, IConnectionDto, ICirquitDto<ICirquitElementDto, IConnectionDto>> dtoProducer) {
-            _dtoSerializer = dtoProducer.ProduceDtoSerializer();
+        private readonly IDtoSerializer<T, U, Z> _dtoSerializer;
+        public DtoOutputFormatter(IDtoSerializer<T, U, Z> dtoSerializer) {
+            _dtoSerializer = dtoSerializer;
 
             SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("application/json"));
             SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("text/json"));
@@ -37,8 +35,8 @@ namespace QuantumComputingApi.Formatters {
             var response = context.HttpContext.Response;
             var serialized = "";
 
-            if (context.Object is ICirquitDto<ICirquitElementDto, IConnectionDto>) {
-                var cirquit = context.Object as ICirquitDto<ICirquitElementDto, IConnectionDto>;
+            if (context.Object is Z) {
+                var cirquit = context.Object as Z;
 
                 serialized = await _dtoSerializer.SerializeToText(cirquit);
             }

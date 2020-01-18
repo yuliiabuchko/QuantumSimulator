@@ -5,8 +5,8 @@ using QuantumComputingApi.Daos;
 using QuantumComputingApi.Dtos;
 using QuantumComputingApi.Dtos.Producer;
 using QuantumComputingApi.Repositories;
-using QuantumComputingApi.Utils;
 using System.Linq;
+using QuantumComputingApi.Utils;
 
 namespace QuantumComputingApi.Services.Impl {
     public class CirquitServiceImpl : ICirquitService {

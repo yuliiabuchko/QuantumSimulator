@@ -5,15 +5,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
 using QuantumComputingApi.Dtos;
-using QuantumComputingApi.Dtos.Producer;
 using QuantumComputingApi.Dtos.Deserializers;
 
-namespace QuantumComputingApi.Formatters {
-    public class DtoInputFormatter : TextInputFormatter {
+namespace QuantumComputingApi.Dtos.Formatters {
+    public class DtoInputFormatter<T,U, Z> : TextInputFormatter
+        where T : ICirquitElementDto
+        where U : IConnectionDto
+        where Z : ICirquitDto<T, U> 
+    {
 
-        private readonly IDtoDeserializer _dtoDeserializer;
-        public DtoInputFormatter(DtoProducerBase dtoProducer) {
-            _dtoDeserializer = dtoProducer.ProduceDtoDeserializer();
+        private readonly IDtoDeserializer<T,U,Z> _dtoDeserializer;
+        public DtoInputFormatter(IDtoDeserializer<T, U, Z> dtoDeserializer) {
+            _dtoDeserializer = dtoDeserializer;
             
             SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("text/json"));
             SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("application/json"));
