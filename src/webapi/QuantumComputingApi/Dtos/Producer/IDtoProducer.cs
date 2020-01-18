@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace QuantumComputingApi.Dtos.Producer
 {
-    public interface IDtoProducer< out T, out  U, Z, V>
+    public interface IDtoProducer< out T, out  U, out Z, out V>
         where T : ICirquitElementDto
         where U : IConnectionDto
         where Z : ICirquitDto<T, U>

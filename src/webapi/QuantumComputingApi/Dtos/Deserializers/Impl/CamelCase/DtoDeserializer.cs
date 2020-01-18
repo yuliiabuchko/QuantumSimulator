@@ -8,7 +8,7 @@ namespace QuantumComputingApi.Dtos.Deserializers.Impl.CamelCase {
 
         public Task<CirquitDto> DeserializeFromText(string text)
         {
-            throw new System.NotImplementedException();
+            return Task.FromResult(JsonConvert.DeserializeObject<CirquitDto>(text));
         }
     }
 }

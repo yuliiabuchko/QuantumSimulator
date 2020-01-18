@@ -19,6 +19,8 @@ using QuantumComputingApi.Services;
 using QuantumComputingApi.Services.Impl;
 using QuantumComputingApi.Utils;
 using QuantumComputingApi.Utils.Impl;
+using QuantumComputingApi.Repositories;
+using QuantumComputingApi.Repositories.Impl;
 
 namespace QuantumComputingApi {
     public class Startup {
@@ -40,7 +42,10 @@ namespace QuantumComputingApi {
             services.AddSingleton<DatabaseSettings>(sp =>
                 sp.GetRequiredService<DatabaseSettings>());
 
-            services.AddSingleton<ICirquitService, CirquitServiceImpl>();
+            services.AddSingleton<ICirquitService, CirquitService>();
+            services.AddSingleton<ICirquitRepository, CirquitRepository>();
+            services.AddTransient<Mapper>(sp =>
+                new Mapper());
 
             services.AddMvc(options => {
                 options.InputFormatters.Insert(0, services.BuildServiceProvider().GetRequiredService<IProvider>().ProvideProducer().ProduceTextInputFormatter());

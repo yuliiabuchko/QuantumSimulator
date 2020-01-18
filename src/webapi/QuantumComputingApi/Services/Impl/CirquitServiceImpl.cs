@@ -9,11 +9,11 @@ using System.Linq;
 using QuantumComputingApi.Utils;
 
 namespace QuantumComputingApi.Services.Impl {
-    public class CirquitServiceImpl : ICirquitService {
+    public class CirquitService : ICirquitService {
         private readonly ICirquitRepository _cirquitRepository;
         private readonly Mapper _mapper;
 
-        public CirquitServiceImpl(ICirquitRepository repository, Mapper mapper) {
+        public CirquitService(ICirquitRepository repository, Mapper mapper) {
             _cirquitRepository = repository;
             _mapper = mapper;
         }
