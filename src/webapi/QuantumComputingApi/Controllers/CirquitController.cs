@@ -28,11 +28,11 @@ namespace QuantumComputingApi.Controllers {
         }
 
         [HttpGet]
-        [Route("{Id}")]
+        [Route("{Uuid}")]
         public async Task<ActionResult<ICirquitDto<ICirquitElementDto, IConnectionDto>>> GetCirquit(
-            [FromRoute][Required] Guid Id
+            [FromRoute][Required] Guid Uuid
         ) {
-            var result = await _cirquitService.GetCirquitHandler(Id);
+            var result = await _cirquitService.GetCirquitHandler(Uuid);
 
             return new JsonResult(result){ StatusCode = (int)HttpStatusCode.OK };
         }
@@ -47,32 +47,32 @@ namespace QuantumComputingApi.Controllers {
         }
 
         [HttpPut]
-        [Route("{Id}")]
+        [Route("{Uuid}")]
         public async Task<ActionResult<ICirquitDto<ICirquitElementDto, IConnectionDto>>> UpdateCirquit(
-            [FromRoute][Required] Guid Id,
+            [FromRoute][Required] Guid Uuid,
             [FromBody][Required] ICirquitDto<ICirquitElementDto, IConnectionDto> cirquitDto
         ) {
-            var result = await _cirquitService.UpdateCirquitHandler(Id, cirquitDto);
+            var result = await _cirquitService.UpdateCirquitHandler(Uuid, cirquitDto);
 
             return new JsonResult(result){ StatusCode = (int)HttpStatusCode.OK };
         }
 
         [HttpDelete]
-        [Route("{Id}")]
+        [Route("{Uuid}")]
         public async Task<ActionResult> DeleteCirquit(
-            [FromRoute][Required] Guid Id
+            [FromRoute][Required] Guid Uuid
         ) {
-            await _cirquitService.DeleteCirquitHandler(Id);
+            await _cirquitService.DeleteCirquitHandler(Uuid);
 
             return Ok();
         }
 
         [HttpGet]
-        [Route("{Id}/execute")]
+        [Route("{Uuid}/execute")]
         public async Task<ActionResult<ICirquitResultDto>> ExecuteCirquit(
-            [FromRoute][Required] Guid Id
+            [FromRoute][Required] Guid Uuid
         ) {
-            var result = await _cirquitService.ExecuteCirquitHandler(Id);
+            var result = await _cirquitService.ExecuteCirquitHandler(Uuid);
 
             return new JsonResult(result){ StatusCode = (int)HttpStatusCode.OK };
         }

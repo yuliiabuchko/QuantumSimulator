@@ -28,23 +28,19 @@ namespace QuantumComputingApi.Services.Impl {
             return _mapper.MapCirquitToDto(created);
         }
 
-        public async Task DeleteCirquitHandler(Guid Id) {
-            var deleted = await _cirquitRepository.DeleteCirquit(Id);
+        public async Task DeleteCirquitHandler(Guid Uuid) {
+            var deleted = await _cirquitRepository.DeleteCirquit(Uuid);
             if(deleted == null) {
                 throw new ApplicationException("Error while trying to delete resource"){};
             }
-        }
-
-        public Task<ICirquitResultDto> ExecuteCirquitHandler(Guid Id) {
-            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<ICirquitDto<ICirquitElementDto, IConnectionDto>>> GetAllCirquitsHandler() {
             return (await _cirquitRepository.FindAllCirquits()).Select(dao => _mapper.MapCirquitToDto(dao));
         }
 
-        public async Task<ICirquitDto<ICirquitElementDto, IConnectionDto>> GetCirquitHandler(Guid Id) {
-        var found = await _cirquitRepository.FindCirquit(Id);
+        public async Task<ICirquitDto<ICirquitElementDto, IConnectionDto>> GetCirquitHandler(Guid Uuid) {
+        var found = await _cirquitRepository.FindCirquit(Uuid);
 
             if(found == null) {
                 throw new ApplicationException("Error while trying to get resource"){};
@@ -53,16 +49,20 @@ namespace QuantumComputingApi.Services.Impl {
             return _mapper.MapCirquitToDto(found);
         }
 
-        public async Task<ICirquitDto<ICirquitElementDto, IConnectionDto>> UpdateCirquitHandler(Guid Id, ICirquitDto<ICirquitElementDto, IConnectionDto> cirquitDto) {
-            var found = await _cirquitRepository.FindCirquit(Id);
+        public async Task<ICirquitDto<ICirquitElementDto, IConnectionDto>> UpdateCirquitHandler(Guid Uuid, ICirquitDto<ICirquitElementDto, IConnectionDto> cirquitDto) {
+            var found = await _cirquitRepository.FindCirquit(Uuid);
             if(found == null) {
                 throw new ApplicationException("Error while trying to get resource"){};
             }
 
             var dao = _mapper.MapCirquitToDao(cirquitDto);
-            var updated = await _cirquitRepository.UpdateCirquit(Id, dao);
+            var updated = await _cirquitRepository.UpdateCirquit(Uuid, dao);
 
             return _mapper.MapCirquitToDto(updated);
+        }
+
+        public Task<ICirquitResultDto> ExecuteCirquitHandler(Guid Uuid) {
+            throw new NotImplementedException();
         }
     }
 }

@@ -36,7 +36,8 @@ namespace QuantumComputingApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddTransient<IProvider, Provider>();
+            services.AddTransient<IProvider>(sp =>
+                new Provider(DtoType.SnakeCase));
 
             services.AddSingleton<ICirquitService, CirquitServiceImpl>();
 

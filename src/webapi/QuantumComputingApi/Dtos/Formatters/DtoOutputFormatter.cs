@@ -7,7 +7,7 @@ using Microsoft.Net.Http.Headers;
 using QuantumComputingApi.Dtos;
 using QuantumComputingApi.Dtos.Serializers;
 
-namespace QuantumComputingApi.Formatters {
+namespace QuantumComputingApi.Dtos.Formatters {
     public class DtoOutputFormatter<T, U, Z> : TextOutputFormatter
     where T : ICirquitElementDto
     where U : IConnectionDto
