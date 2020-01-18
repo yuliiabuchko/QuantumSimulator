@@ -38,23 +38,23 @@ namespace QuantumComputingApi.Controllers {
         }
 
         [HttpPost]
-        public async Task<ActionResult<ICirquitDto<ICirquitElementDto, IConnectionDto>>> CreateCirquit(
+        public async Task<ActionResult> CreateCirquit(
             [FromBody][Required] ICirquitDto<ICirquitElementDto, IConnectionDto> cirquitDto
         ) {
-            var result = await _cirquitService.CreateCirquitHandler(cirquitDto);
+            await _cirquitService.CreateCirquitHandler(cirquitDto);
 
-            return new JsonResult(result){ StatusCode = (int)HttpStatusCode.OK };
+            return Ok();
         }
 
         [HttpPut]
         [Route("{Uuid}")]
-        public async Task<ActionResult<ICirquitDto<ICirquitElementDto, IConnectionDto>>> UpdateCirquit(
+        public async Task<ActionResult> UpdateCirquit(
             [FromRoute][Required] Guid Uuid,
             [FromBody][Required] ICirquitDto<ICirquitElementDto, IConnectionDto> cirquitDto
         ) {
-            var result = await _cirquitService.UpdateCirquitHandler(Uuid, cirquitDto);
+            await _cirquitService.UpdateCirquitHandler(Uuid, cirquitDto);
 
-            return new JsonResult(result){ StatusCode = (int)HttpStatusCode.OK };
+            return Ok();
         }
 
         [HttpDelete]

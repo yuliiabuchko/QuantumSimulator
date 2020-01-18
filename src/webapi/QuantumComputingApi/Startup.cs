@@ -10,49 +10,47 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using QuantumComputingApi.Dtos;
+using QuantumComputingApi.Dtos.Impl;
 using QuantumComputingApi.Dtos.Producer;
 using QuantumComputingApi.Dtos.Producer.Impl;
-using QuantumComputingApi.Utils;
+using QuantumComputingApi.Properties;
 using QuantumComputingApi.Services;
 using QuantumComputingApi.Services.Impl;
+using QuantumComputingApi.Utils;
 using QuantumComputingApi.Utils.Impl;
 
-
-using QuantumComputingApi.Dtos.Impl;
-using QuantumComputingApi.Dtos;
-
-namespace QuantumComputingApi
-{
-    public class Startup
-    {
-        public Startup(IConfiguration configuration)
-        {
+namespace QuantumComputingApi {
+    public class Startup {
+        public Startup(IConfiguration configuration) {
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
+        public void ConfigureServices(IServiceCollection services) {
             services.AddControllers();
             services.AddTransient<IProvider>(sp =>
                 new Provider(DtoType.SnakeCase));
 
+            services.Configure<DatabaseSettings>(
+                Configuration.GetSection(nameof(DatabaseSettings)));
+
+            services.AddSingleton<DatabaseSettings>(sp =>
+                sp.GetRequiredService<DatabaseSettings>());
+
             services.AddSingleton<ICirquitService, CirquitServiceImpl>();
 
-            
-            services.AddMvc( options => {
+            services.AddMvc(options => {
                 options.InputFormatters.Insert(0, services.BuildServiceProvider().GetRequiredService<IProvider>().ProvideProducer().ProduceTextInputFormatter());
-                options.OutputFormatters.Insert(0,services.BuildServiceProvider().GetRequiredService<IProvider>().ProvideProducer().ProduceTextOutputFormatter());
+                options.OutputFormatters.Insert(0, services.BuildServiceProvider().GetRequiredService<IProvider>().ProvideProducer().ProduceTextOutputFormatter());
             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
+            if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
 
@@ -62,8 +60,7 @@ namespace QuantumComputingApi
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
+            app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
             });
         }

@@ -18,19 +18,14 @@ namespace QuantumComputingApi.Services.Impl {
             _mapper = mapper;
         }
 
-        public async Task<ICirquitDto<ICirquitElementDto, IConnectionDto>> CreateCirquitHandler(ICirquitDto<ICirquitElementDto, IConnectionDto> cirquitDto) {
+        public async Task CreateCirquitHandler(ICirquitDto<ICirquitElementDto, IConnectionDto> cirquitDto) {
             var dao = _mapper.MapCirquitToDao(cirquitDto);
-            var created = await _cirquitRepository.CreateCirquit(dao);
-            if(created == null) {
-                throw new ApplicationException("Error while trying to create resource"){};
-            }
-
-            return _mapper.MapCirquitToDto(created);
+            await _cirquitRepository.CreateCirquit(dao);
         }
 
         public async Task DeleteCirquitHandler(Guid Uuid) {
-            var deleted = await _cirquitRepository.DeleteCirquit(Uuid);
-            if(deleted == null) {
+            var success = await _cirquitRepository.DeleteCirquit(Uuid);
+            if(! success) {
                 throw new ApplicationException("Error while trying to delete resource"){};
             }
         }
@@ -49,16 +44,18 @@ namespace QuantumComputingApi.Services.Impl {
             return _mapper.MapCirquitToDto(found);
         }
 
-        public async Task<ICirquitDto<ICirquitElementDto, IConnectionDto>> UpdateCirquitHandler(Guid Uuid, ICirquitDto<ICirquitElementDto, IConnectionDto> cirquitDto) {
+        public async Task UpdateCirquitHandler(Guid Uuid, ICirquitDto<ICirquitElementDto, IConnectionDto> cirquitDto) {
             var found = await _cirquitRepository.FindCirquit(Uuid);
             if(found == null) {
                 throw new ApplicationException("Error while trying to get resource"){};
             }
 
             var dao = _mapper.MapCirquitToDao(cirquitDto);
-            var updated = await _cirquitRepository.UpdateCirquit(Uuid, dao);
+            var success = await _cirquitRepository.UpdateCirquit(Uuid, dao);
 
-            return _mapper.MapCirquitToDto(updated);
+            if(! success) {
+                throw new ApplicationException("Error while trying to update resource"){};
+            }
         }
 
         public Task<ICirquitResultDto> ExecuteCirquitHandler(Guid Uuid) {

@@ -9,8 +9,8 @@ namespace QuantumComputingApi.Repositories
     {
         Task<IEnumerable<CirquitDao>> FindAllCirquits();
         Task<CirquitDao> FindCirquit(Guid Uuid);
-        Task<CirquitDao> CreateCirquit(CirquitDao cirquit);
-        Task<CirquitDao> UpdateCirquit(Guid Uuid, CirquitDao cirquit);
-        Task<CirquitDao> DeleteCirquit(Guid Uuid);
+        Task CreateCirquit(CirquitDao cirquit);
+        Task<bool> UpdateCirquit(Guid Uuid, CirquitDao cirquit);
+        Task<bool> DeleteCirquit(Guid Uuid);
     }
 }
