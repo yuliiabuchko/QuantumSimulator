@@ -12,7 +12,7 @@ namespace Lachesis.QuantumComputing
 		/*
 		 * Vector representation of a quantum register
 		 */
-		public new Vector<Complex> Vector { get; protected set; }
+		public Vector<Complex> Vector { get; protected set; }
 
 		/*
 		 * Constructor from integer
@@ -22,15 +22,15 @@ namespace Lachesis.QuantumComputing
 		/*
 		 * Constructor from other quantum registers
 		 */
-		public QuantumRegisterVector(params QuantumRegisterVector[] quantumRegisters) : this((IEnumerable<QuantumRegisterVector>)quantumRegisters) { }
+		// public QuantumRegisterVector(params QuantumRegisterVector[] quantumRegisters) : this((IEnumerable<QuantumRegisterVector>)quantumRegisters) { }
 
 		/*
 		 * Constructor from enumerable of other quantum registers
 		 */
-		public QuantumRegisterVector(IEnumerable<QuantumRegisterVector> quantumRegisters)
-		{
-			this.Vector = quantumRegisters.Aggregate(Vector<Complex>.Build.Sparse(1, Complex.One), (vector, quantumRegister) => Mathematics.LinearAlgebra.CartesianProduct(vector, quantumRegister.Vector));
-		}
+		// public QuantumRegisterVector(IEnumerable<QuantumRegisterVector> quantumRegisters)
+		// {
+			// this.Vector = quantumRegisters.Aggregate(Vector<Complex>.Build.Sparse(1, Complex.One), (vector, quantumRegister) => Mathematics.LinearAlgebra.CartesianProduct(vector, quantumRegister.Vector));
+		// }
 
 		/*
 		 * Constructor from probability amplitudes
@@ -55,6 +55,12 @@ namespace Lachesis.QuantumComputing
 			this.Vector = vector;
 
 			this.Normalize();
+		}
+
+		public QuantumRegisterVector(QuantumRegisterAbstract quantumRegisterAbstract)
+		{
+			var a = (QuantumRegisterVector) quantumRegisterAbstract;
+			this.Vector = a.Vector;
 		}
 
 		/*
@@ -246,7 +252,12 @@ namespace Lachesis.QuantumComputing
 		{
 			return this.Vector.GetHashCode();
 		}
-		
+
+		public override Complex[] ToArray()
+		{
+			return Vector.ToArray();
+		}
+
 		public override Complex GetRegisterAt(int index)
 		{
 			return Vector.At(index);
@@ -255,6 +266,11 @@ namespace Lachesis.QuantumComputing
 		public override void SetRegisterAt(int index, Complex value)
 		{
 			Vector.At(index, value);
+		}
+
+		public override Vector<Complex> castToComplexVector()
+		{
+			return this.Vector;
 		}
 	}
 }

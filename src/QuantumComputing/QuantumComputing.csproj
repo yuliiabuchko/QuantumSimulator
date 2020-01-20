@@ -51,6 +51,7 @@
     <Compile Include="QuantumGate.cs" />
     <Compile Include="QuantumRegisterAbstract.cs" />
     <Compile Include="QuantumRegisterArray.cs" />
+    <Compile Include="QuantumRegisterArrayProducer.cs" />
     <Compile Include="QuantumRegisterBaseProducer.cs" />
     <Compile Include="QuantumRegisterVector.cs" />
     <Compile Include="QuantumRegisterVectorProducer.cs" />

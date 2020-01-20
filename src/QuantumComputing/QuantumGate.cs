@@ -305,7 +305,17 @@ namespace Lachesis.QuantumComputing
 
 		public static QuantumRegisterVector operator *(QuantumGate quantumGate, QuantumRegisterVector quantumRegister)
 		{
-			return new QuantumRegisterVector(quantumGate.Matrix * quantumRegister.Vector);
+			return new QuantumRegisterVector(quantumGate.Matrix * quantumRegister.castToComplexVector());
+		}
+		
+		public static QuantumRegisterArray operator *(QuantumGate quantumGate, QuantumRegisterArray quantumRegister)
+		{
+			return new QuantumRegisterArray(quantumGate.Matrix * quantumRegister.castToComplexVector());
+		}
+
+		public static QuantumRegisterVector operator *(QuantumGate quantumGate, QuantumRegisterAbstract quantumRegister)
+		{
+			return new QuantumRegisterVector(quantumGate.Matrix * quantumRegister.castToComplexVector());
 		}
 
 		/*

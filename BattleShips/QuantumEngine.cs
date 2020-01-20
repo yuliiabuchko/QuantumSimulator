@@ -5,6 +5,7 @@ namespace BattleShips
 {
     public class QuantumEngine : IEngine
     {
+        private readonly QuantumRegisterProducerBase _producer = new QuantumRegisterArrayProducer();
         double CountShipLive(int lives, int bombs)
         {
             double ones = 0;
@@ -14,8 +15,10 @@ namespace BattleShips
             {
                 if (bombs > lives)
                     bombs = lives;
-                QuantumRegisterVector zero = (QuantumRegisterVector) Qubit.Zero.QuantumRegister;
-                QuantumRegisterVector one = QuantumGate.Rotation((double)bombs * Math.PI / (double)lives) * zero;
+                // QuantumRegisterVector zero = (QuantumRegisterVector) Qubit.Zero.QuantumRegister;
+                // QuantumRegisterVector one = QuantumGate.Rotation((double)bombs * Math.PI / (double)lives) * zero;
+                var zero = _producer.ProduceRegister(Qubit.Zero); 
+                var one = _producer.ProduceRegister(QuantumGate.Rotation((double)bombs * Math.PI / (double)lives) * zero);
                 Random random = new Random();
                 one.Collapse(random);
                 if (one.GetValue() == 1)

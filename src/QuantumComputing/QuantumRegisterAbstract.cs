@@ -15,8 +15,10 @@ namespace Lachesis.QuantumComputing
         public abstract override bool Equals(object obj);
         public abstract override int GetHashCode();
 
+        public abstract Complex[] ToArray();
+
         public abstract Complex GetRegisterAt(int index);
         public abstract void SetRegisterAt(int index, Complex value);
-        public object Register;
+        public abstract Vector<Complex> castToComplexVector();
     }
 }
