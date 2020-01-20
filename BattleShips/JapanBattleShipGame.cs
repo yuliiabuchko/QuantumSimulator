@@ -39,7 +39,7 @@ namespace BattleShips
                     }
                 }
                 _shipsPos.Add(_palyerShipsPositions);
-                _bombs.Add(new List<int>(new int[ShipSlotsNumber+1]));
+                _bombs.Add(new List<int>(new int[ShipSlotsNumber + 1]));
                 Console.Clear();
             }
         }

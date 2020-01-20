@@ -53,7 +53,7 @@ namespace Lachesis.QuantumComputing.Tests
 			Complex[] samples = new Complex[] { Complex.One, Complex.One + Complex.ImaginaryOne, Complex.ImaginaryOne, Complex.One - Complex.ImaginaryOne, Complex.One, Complex.Zero, Complex.ImaginaryOne, Complex.ImaginaryOne };
 
 			// Create a quantum register from samples
-			QuantumRegister quantumRegister = new QuantumRegister(samples);
+			QuantumRegisterVector quantumRegister = new QuantumRegisterVector(samples);
 
 			// Get normalized samples
 			samples = quantumRegister.Vector.ToArray();
@@ -65,7 +65,7 @@ namespace Lachesis.QuantumComputing.Tests
 			Fourier.Inverse(samples);
 
 			// Compare results
-			Assert.IsTrue(quantumRegister.AlmostEquals(new QuantumRegister(samples)));
+			Assert.IsTrue(quantumRegister.AlmostEquals(new QuantumRegisterVector(samples)));
 		}
 
 		[TestMethod]
@@ -78,8 +78,8 @@ namespace Lachesis.QuantumComputing.Tests
 		public void QuantumGate_CombinedApplicationToQuantumRegister_IsValid()
 		{
 			QuantumGate quantumGate = new QuantumGate(QuantumGate.NotGate, QuantumGate.IdentityGate);
-			QuantumRegister quantumRegister = new QuantumRegister(Qubit.Zero, Qubit.One);
-			Assert.AreEqual(quantumGate * quantumRegister, new QuantumRegister(Qubit.One, Qubit.One));
+			QuantumRegisterVector quantumRegister = new QuantumRegisterVector(Qubit.Zero, Qubit.One);
+			Assert.AreEqual(quantumGate * quantumRegister, new QuantumRegisterVector(Qubit.One, Qubit.One));
 		}
 	}
 }

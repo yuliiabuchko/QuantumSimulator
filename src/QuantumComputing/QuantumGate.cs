@@ -159,6 +159,8 @@ namespace Lachesis.QuantumComputing
 				{ 0, Mathematics.Numerics.ComplexExp(Complex.ImaginaryOne * phase)},
 			});
 		}
+		// TODO need
+
         public static QuantumGate Rotation(double angle)
         {
             return new QuantumGate(new Complex[,] {
@@ -299,9 +301,11 @@ namespace Lachesis.QuantumComputing
 		/*
 		 * Operator to apply a quantum gate to a quantum register
 		 */
-		public static QuantumRegister operator *(QuantumGate quantumGate, QuantumRegister quantumRegister)
+		// TODO need
+
+		public static QuantumRegisterVector operator *(QuantumGate quantumGate, QuantumRegisterVector quantumRegister)
 		{
-			return new QuantumRegister(quantumGate.Matrix * quantumRegister.Vector);
+			return new QuantumRegisterVector(quantumGate.Matrix * quantumRegister.Vector);
 		}
 
 		/*
