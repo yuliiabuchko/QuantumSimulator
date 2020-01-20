@@ -1,23 +1,24 @@
-﻿using MathNet.Numerics.LinearAlgebra;
-using MathNet.Numerics;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using QuantumComputing;
+using MathNet.Numerics;
+using MathNet.Numerics.LinearAlgebra;
 
-namespace Lachesis.QuantumComputing
+namespace QuantumComputing
 {
 	public class QuantumRegisterVector : QuantumRegisterAbstract
 	{
 		/*
 		 * Vector representation of a quantum register
 		 */
-		public Vector<Complex> Vector { get; protected set; }
+		public new Vector<Complex> Vector { get; protected set; }
 
 		/*
 		 * Constructor from integer
 		 */
-		public QuantumRegisterVector(int value, int bitCount = 0) : this(Mathematics.LinearAlgebra.VectorFromInteger(value, bitCount)) { }
+		public QuantumRegisterVector(int value, int bitCount = 0) : this(QuantumComputing.Mathematics.LinearAlgebra.VectorFromInteger(value, bitCount)) { }
 
 		/*
 		 * Constructor from other quantum registers
@@ -108,7 +109,7 @@ namespace Lachesis.QuantumComputing
 
 		public override int GetValue(int portionStart = 0, int portionLength = 0)
 		{
-			int registerLength = Mathematics.Numerics.Log2(this.Vector.Count - 1);
+			int registerLength = QuantumComputing.Mathematics.Numerics.Log2(this.Vector.Count - 1);
 			
 			if (portionLength == 0)
 			{

@@ -2,8 +2,9 @@
 using Moq;
 using System;
 using System.Numerics;
+using QuantumComputing;
 
-namespace Lachesis.QuantumComputing.Tests
+namespace QuantumComputing.Tests
 {
 	[TestClass]
 	public class QuantumRegisterTests

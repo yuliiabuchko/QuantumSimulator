@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using Lachesis.QuantumComputing;
+using QuantumComputing;
 using System;
 namespace BattleShips
 {
     public class QuantumEngine : IEngine
     {
-        private readonly QuantumRegisterProducerBase _producer = new QuantumRegisterArrayProducer();
+        private readonly QuantumRegisterProducerBase _producer = new QuantumRegisterVectorProducer();
         double CountShipLive(int lives, int bombs)
         {
             double ones = 0;

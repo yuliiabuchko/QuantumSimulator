@@ -1,5 +1,4 @@
 ﻿using System;
-using Lachesis.QuantumComputing;
 
 namespace BattleShips
 {
@@ -13,37 +12,24 @@ namespace BattleShips
             {
                 Console.WriteLine("Menu\n1.Start game \nx.End.");
                 var input = Console.ReadLine().Trim();
+                
                 if (input.Equals("x", StringComparison.OrdinalIgnoreCase))
                 {
-                    break;
+                    return;
                 }
+
                 if (input.Equals("1", StringComparison.OrdinalIgnoreCase))
                 {
                     BatleShipGame game = new JapanBattleShipGame(new QuantumConcreteFactory());
                     game.Play();
                 }
-                //Console.Clear();
-                Console.WriteLine(input);
-                Console.WriteLine("Incorrect input.");
-            }
-            /*
-            int ones = 0;
-            int zeros = 0;
-            for (int i = 0; i < 102400; i++)
-            {
-                QuantumRegisterVector zero = Qubit.Zero;
-                QuantumRegisterVector one = QuantumGate.Rotation(Math.PI / 2) * zero;
-                Random random = new Random();
-                one.Collapse(random);
-                if (one.GetValue() == 1)
-                    ones++;
                 else
-                    zeros++;
+                {
+                    //Console.Clear();
+                    Console.WriteLine(input);
+                    Console.WriteLine("Incorrect input.");   
+                }
             }
-            Console.WriteLine(ones + "  " + zeros);
-            Console.ReadKey();
-            */
         }
-
     }
 }

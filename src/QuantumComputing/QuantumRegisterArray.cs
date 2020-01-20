@@ -5,12 +5,13 @@ using System.Numerics;
 using MathNet.Numerics;
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Complex32;
+using QuantumComputing;
 
-namespace Lachesis.QuantumComputing
+namespace QuantumComputing
 {
     public class QuantumRegisterArray : QuantumRegisterAbstract
     {
-        public List<Complex> Vector { get; protected set; }
+        public new List<Complex> Vector { get; protected set; }
 
         /*
          * Constructor from integer
@@ -19,24 +20,6 @@ namespace Lachesis.QuantumComputing
             Mathematics.LinearAlgebra.VectorFromInteger(value, bitCount))
         {
         }
-
-        /*
-         * Constructor from other quantum registers
-         */
-        // public QuantumRegisterArray(params QuantumRegisterArray[] quantumRegisters) : this(
-        //     (IEnumerable<QuantumRegisterArray>) quantumRegisters)
-        // {
-        // }
-        //
-        // /*
-        //  * Constructor from enumerable of other quantum registers
-        //  */
-        // public QuantumRegisterArray(IEnumerable<QuantumRegisterArray> quantumRegisters)
-        // {
-        //     this.Vector = quantumRegisters.Aggregate(Vector<Complex>.Build.Sparse(1, Complex.One),
-        //         (vector, quantumRegister) =>
-        //             Mathematics.LinearAlgebra.CartesianProduct(vector, quantumRegister.Vector));
-        // }
 
         /*
          * Constructor from probability amplitudes
@@ -279,12 +262,6 @@ namespace Lachesis.QuantumComputing
         public override Vector<Complex> castToComplexVector()
         {
             return Vector<Complex>.Build.SparseOfEnumerable(this.Vector.ToArray());
-        }
-
-
-        public Vector<Complex> convertArrayToVector(List<Complex> array)
-        {
-            return Vector<Complex>.Build.SparseOfEnumerable(array);
         }
     }
 }

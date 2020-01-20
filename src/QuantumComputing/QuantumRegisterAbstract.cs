@@ -2,7 +2,7 @@
 using System.Numerics;
 using MathNet.Numerics.LinearAlgebra;
 
-namespace Lachesis.QuantumComputing
+namespace QuantumComputing
 {
     public abstract class QuantumRegisterAbstract
     {

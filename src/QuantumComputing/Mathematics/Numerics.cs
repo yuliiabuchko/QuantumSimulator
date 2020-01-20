@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 
-namespace Lachesis.QuantumComputing.Mathematics
+namespace QuantumComputing.Mathematics
 {
 	public static class Numerics
 	{

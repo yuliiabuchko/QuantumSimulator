@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Numerics;
 using MathNet.Numerics.LinearAlgebra;
+using QuantumComputing;
 
-namespace Lachesis.QuantumComputing
+namespace QuantumComputing
 {
     public class QuantumRegisterVectorProducer : QuantumRegisterProducerBase
     {

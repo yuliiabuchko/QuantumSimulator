@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Numerics;
 
-namespace Lachesis.QuantumComputing.Tests
+namespace QuantumComputing.Tests
 {
 	[TestClass]
 	public class QubitTests
