@@ -1,8 +1,9 @@
 using Newtonsoft.Json;
+using QuantumComputingApi.Dtos.Impl.CamelCase.Helpers;
 
 namespace QuantumComputingApi.Dtos.Impl.CamelCase {
-    public class CirquitResultDto : ICirquitResultDto {
+    public class CirquitResultDto : ICirquitResultDto<QubitDto, RegisterDto> {
         [JsonProperty(PropertyName = "resultingRegister")]
-        public IRegisterDto ResultingRegister { get; set; }
+        public RegisterDto ResultingRegister { get; set; }
     }
 }

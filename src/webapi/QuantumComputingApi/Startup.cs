@@ -32,14 +32,11 @@ namespace QuantumComputingApi {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
+
+            services.Configure<DatabaseSettings> (Configuration.GetSection(nameof(DatabaseSettings)));
+            
             services.AddTransient<IProvider>(sp =>
                 new Provider(DtoType.SnakeCase));
-
-            services.Configure<DatabaseSettings>(
-                Configuration.GetSection(nameof(DatabaseSettings)));
-
-            services.AddSingleton<DatabaseSettings>(sp =>
-                sp.GetRequiredService<DatabaseSettings>());
 
             services.AddTransient<ICirquitService, CirquitService>();
             services.AddTransient<ICirquitRepository, CirquitRepository>();
@@ -51,10 +48,10 @@ namespace QuantumComputingApi {
             services.AddControllers();
             services.AddMvc();
 
-            // services.AddMvc(options => {
-            //     options.InputFormatters.Insert(0, services.BuildServiceProvider().GetRequiredService<IProvider>().ProvideProducer().ProduceTextInputFormatter());
-            //     options.OutputFormatters.Insert(0, services.BuildServiceProvider().GetRequiredService<IProvider>().ProvideProducer().ProduceTextOutputFormatter());
-            // });
+            services.AddMvc(options => {
+                options.InputFormatters.Insert(0, services.BuildServiceProvider().GetRequiredService<IProvider>().ProvideProducer().ProduceTextInputFormatter());
+                options.OutputFormatters.Insert(0, services.BuildServiceProvider().GetRequiredService<IProvider>().ProvideProducer().ProduceTextOutputFormatter());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

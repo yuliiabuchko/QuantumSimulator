@@ -34,16 +34,24 @@ namespace QuantumComputingApi.Controllers {
         ) {
             var result = await _cirquitService.GetCirquitHandler(Uuid);
 
-            return new JsonResult(result){ StatusCode = (int)HttpStatusCode.OK };
+            if(result == null) {
+                return NotFound("Could not find specified resource");
+            }else{
+                return new JsonResult(result){ StatusCode = (int)HttpStatusCode.OK };
+            }
         }
 
         [HttpPost]
         public async Task<ActionResult> CreateCirquit(
             [FromBody][Required] ICirquitDto<ICirquitElementDto, IConnectionDto> cirquitDto
         ) {
-            await _cirquitService.CreateCirquitHandler(cirquitDto);
+            var created = await _cirquitService.CreateCirquitHandler(cirquitDto);
 
-            return Ok();
+            if( created == null ){
+                return Conflict("Error while creating resource");
+            }else{
+                return Created($"/cirquit/{created.ToString()}", created);
+            }
         }
 
         [HttpPut]
@@ -69,7 +77,7 @@ namespace QuantumComputingApi.Controllers {
 
         [HttpGet]
         [Route("{Uuid}/execute")]
-        public async Task<ActionResult<ICirquitResultDto>> ExecuteCirquit(
+        public async Task<ActionResult<ICirquitResultDto<IQubitDto, IRegisterDto<IQubitDto>>>> ExecuteCirquit(
             [FromRoute][Required] Guid Uuid
         ) {
             var result = await _cirquitService.ExecuteCirquitHandler(Uuid);

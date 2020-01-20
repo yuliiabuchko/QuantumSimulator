@@ -13,7 +13,7 @@ namespace QuantumComputingApi.Utils.Impl
         public Provider(DtoType dtoType) {
             _dtoType = dtoType;
         }
-        public IDtoProducer<ICirquitElementDto, IConnectionDto, ICirquitDto<ICirquitElementDto, IConnectionDto>, ICirquitResultDto> ProvideProducer()
+        public IDtoProducer<ICirquitElementDto, IConnectionDto, ICirquitDto<ICirquitElementDto, IConnectionDto>, IQubitDto, IRegisterDto<IQubitDto>, ICirquitResultDto<IQubitDto, IRegisterDto<IQubitDto>>> ProvideProducer()
         {
             object producer = null;
             switch(_dtoType){
@@ -30,7 +30,7 @@ namespace QuantumComputingApi.Utils.Impl
                 }
             }
             
-            return (IDtoProducer<ICirquitElementDto, IConnectionDto, ICirquitDto<ICirquitElementDto, IConnectionDto>, ICirquitResultDto>) producer;
+            return (IDtoProducer<ICirquitElementDto, IConnectionDto, ICirquitDto<ICirquitElementDto, IConnectionDto>, IQubitDto, IRegisterDto<IQubitDto>, ICirquitResultDto<IQubitDto, IRegisterDto<IQubitDto>>>) producer;
         }
     }
 }

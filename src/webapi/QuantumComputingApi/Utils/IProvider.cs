@@ -5,6 +5,6 @@ namespace QuantumComputingApi.Utils
 {
     public interface IProvider
     {
-        public IDtoProducer<ICirquitElementDto, IConnectionDto, ICirquitDto<ICirquitElementDto, IConnectionDto>, ICirquitResultDto> ProvideProducer();
+        public IDtoProducer<ICirquitElementDto, IConnectionDto, ICirquitDto<ICirquitElementDto, IConnectionDto>, IQubitDto, IRegisterDto<IQubitDto>, ICirquitResultDto<IQubitDto, IRegisterDto<IQubitDto>>> ProvideProducer();
     }
 }

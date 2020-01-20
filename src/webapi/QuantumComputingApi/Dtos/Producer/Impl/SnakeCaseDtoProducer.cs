@@ -9,7 +9,7 @@ using QuantumComputingApi.Dtos.Serializers;
 using QuantumComputingApi.Dtos.Serializers.Impl.SnakeCase;
 
 namespace QuantumComputingApi.Dtos.Producer.Impl {
-    public class SnakeCaseDtoProducer : IDtoProducer<CirquitElementDto, ConnectionDto, CirquitDto, CirquitResultDto> {
+    public class SnakeCaseDtoProducer : IDtoProducer<CirquitElementDto, ConnectionDto, CirquitDto, QubitDto, RegisterDto , CirquitResultDto> {
         public CirquitDto ProduceCirquitDto() {
             return new CirquitDto() {
                 Elements = new List<CirquitElementDto>(),

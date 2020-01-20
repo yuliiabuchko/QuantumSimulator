@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using QuantumComputingApi.Daos;
 using MongoDB.Driver;
 using QuantumComputingApi.Properties;
+using Microsoft.Extensions.Options;
 
 namespace QuantumComputingApi.Repositories.Impl {
     public class CirquitRepository : ICirquitRepository {
@@ -11,8 +12,8 @@ namespace QuantumComputingApi.Repositories.Impl {
         IMongoCollection<CirquitDao> _cirquitCollection;
         DatabaseSettings _databaseSettings;
 
-        public CirquitRepository(DatabaseSettings settings) {
-            _databaseSettings = settings;
+        public CirquitRepository(IOptions<DatabaseSettings> opsettings) {
+            _databaseSettings = opsettings.Value;
 
             var client = new MongoClient(_databaseSettings.ConnectionString);
             var database = client.GetDatabase(_databaseSettings.DatabaseName);
