@@ -12,8 +12,10 @@ namespace BattleShips
             int trise = 102400;
             for (int i = 0; i < trise; i++)
             {
-                QuantumRegister zero = Qubit.Zero;
-                QuantumRegister one = QuantumGate.Rotation((double)bombs * Math.PI / (double)lives) * zero;
+                if (bombs > lives)
+                    bombs = lives;
+                QuantumRegisterVector zero = (QuantumRegisterVector) Qubit.Zero.QuantumRegister;
+                QuantumRegisterVector one = QuantumGate.Rotation((double)bombs * Math.PI / (double)lives) * zero;
                 Random random = new Random();
                 one.Collapse(random);
                 if (one.GetValue() == 1)

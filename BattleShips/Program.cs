@@ -31,8 +31,8 @@ namespace BattleShips
             int zeros = 0;
             for (int i = 0; i < 102400; i++)
             {
-                QuantumRegister zero = Qubit.Zero;
-                QuantumRegister one = QuantumGate.Rotation(Math.PI / 2) * zero;
+                QuantumRegisterVector zero = Qubit.Zero;
+                QuantumRegisterVector one = QuantumGate.Rotation(Math.PI / 2) * zero;
                 Random random = new Random();
                 one.Collapse(random);
                 if (one.GetValue() == 1)
