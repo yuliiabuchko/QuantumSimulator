@@ -2,9 +2,9 @@ using System.Numerics;
 using Newtonsoft.Json;
 
 namespace QuantumComputingApi.Dtos.Impl.CamelCase.Helpers {
-    public class GateDto : CirquitElementDto, IGageDto {
-        [JsonProperty(PropertyName = "matrixGate")]
-        public Complex[, ] MatrixGate { get; set; }
+    public class GateDto : CircuitElementDto, IGageDto {
+        [JsonProperty(PropertyName = "gateName")]
+        public string GateName { get; set; }
 
     }
 }

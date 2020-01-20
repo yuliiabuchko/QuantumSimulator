@@ -3,12 +3,13 @@ using Newtonsoft.Json;
 using QuantumComputingApi.Dtos.Impl.CamelCase.Helpers;
 
 namespace QuantumComputingApi.Dtos.Impl.CamelCase {
-    public class CirquitDto : ICirquitDto<CirquitElementDto, ConnectionDto> {
+    public class CircuitDto : ICircuitDto
+    {
 
         [JsonProperty(PropertyName = "elements")]
-        public IEnumerable<CirquitElementDto> Elements { get; set; }
+        public IEnumerable<ICircuitElementDto> Elements { get; set; }
 
         [JsonProperty(PropertyName = "connections")]
-        public IEnumerable<ConnectionDto> Connections { get; set; }
+        public IEnumerable<IConnectionDto> Connections { get; set; }
     }
 }

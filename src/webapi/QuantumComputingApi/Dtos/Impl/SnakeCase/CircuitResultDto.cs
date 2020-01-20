@@ -2,8 +2,8 @@ using Newtonsoft.Json;
 using QuantumComputingApi.Dtos.Impl.SnakeCase.Helpers;
 
 namespace QuantumComputingApi.Dtos.Impl.SnakeCase {
-    public class CirquitResultDto : ICirquitResultDto<QubitDto, RegisterDto> {
+    public class CircuitResultDto : ICircuitResultDto {
         [JsonProperty(PropertyName = "resulting_register")]
-        public RegisterDto ResultingRegister { get; set; }
+        public IRegisterDto ResultingRegister { get; set; }
     }
 }

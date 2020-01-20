@@ -6,17 +6,13 @@ using QuantumComputingApi.Dtos.Producer;
 namespace QuantumComputingApi.Utils
 {
     public class Mapper
-        // <T, U, Z>
-        // where T : ICirquitElementDto
-        // where U : IConnectionDto
-        // where Z : ICirquitDto<T, U>
     {
 
-        public ICirquitDto<ICirquitElementDto, IConnectionDto> MapCirquitToDto(CirquitDao cirquitDao) {
+        public ICircuitDto MapCircuitToDto(CircuitDao circuitDao) {
             throw new NotImplementedException();
         }
 
-        public CirquitDao MapCirquitToDao (ICirquitDto<ICirquitElementDto, IConnectionDto> cirquitDto) {
+        public CircuitDao MapCircuitToDao (ICircuitDto circuitDto) {
             throw new NotImplementedException();
         }
     }

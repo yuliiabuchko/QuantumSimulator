@@ -7,14 +7,12 @@ using Microsoft.Net.Http.Headers;
 using QuantumComputingApi.Dtos;
 using QuantumComputingApi.Dtos.Serializers;
 
-namespace QuantumComputingApi.Dtos.Formatters {
-    public class DtoOutputFormatter<T, U, Z> : TextOutputFormatter
-    where T : ICirquitElementDto
-    where U : IConnectionDto
-    where Z : class, ICirquitDto<T, U> {
+namespace QuantumComputingApi.Formatters {
+    public class DtoOutputFormatter : TextOutputFormatter
+        {
 
-        private readonly IDtoSerializer<T, U, Z> _dtoSerializer;
-        public DtoOutputFormatter(IDtoSerializer<T, U, Z> dtoSerializer) {
+        private readonly IDtoSerializer _dtoSerializer;
+        public DtoOutputFormatter(IDtoSerializer dtoSerializer) {
             _dtoSerializer = dtoSerializer;
 
             SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("application/json"));
@@ -25,7 +23,7 @@ namespace QuantumComputingApi.Dtos.Formatters {
         }
 
         protected override bool CanWriteType(Type type) {
-            if (typeof(ICirquitDto<ICirquitElementDto, IConnectionDto>).IsAssignableFrom(type)) {
+            if (typeof(ICircuitDto).IsAssignableFrom(type)) {
                 return base.CanWriteType(type);
             }
             return false;
@@ -35,10 +33,10 @@ namespace QuantumComputingApi.Dtos.Formatters {
             var response = context.HttpContext.Response;
             var serialized = "";
 
-            if (context.Object is Z) {
-                var cirquit = context.Object as Z;
+            if (context.Object is ICircuitDto) {
+                var circuit = context.Object as ICircuitDto;
 
-                serialized = await _dtoSerializer.SerializeToText(cirquit);
+                serialized = await _dtoSerializer.SerializeToText(circuit);
             }
             await response.WriteAsync(serialized);
         }

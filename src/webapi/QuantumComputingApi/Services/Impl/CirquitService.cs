@@ -9,56 +9,56 @@ using System.Linq;
 using QuantumComputingApi.Utils;
 
 namespace QuantumComputingApi.Services.Impl {
-    public class CirquitService : ICirquitService {
-        private readonly ICirquitRepository _cirquitRepository;
+    public class CircuitService : ICircuitService {
+        private readonly ICircuitRepository _circuitRepository;
         private readonly Mapper _mapper;
 
-        public CirquitService(ICirquitRepository repository, Mapper mapper) {
-            _cirquitRepository = repository;
+        public CircuitService(ICircuitRepository repository, Mapper mapper) {
+            _circuitRepository = repository;
             _mapper = mapper;
         }
 
-        public async Task<Guid?> CreateCirquitHandler(ICirquitDto<ICirquitElementDto, IConnectionDto> cirquitDto) {
-            var dao = _mapper.MapCirquitToDao(cirquitDto);
+        public async Task<Guid?> CreateCircuitHandler(ICircuitDto circuitDto) {
+            var dao = _mapper.MapCircuitToDao(circuitDto);
             dao.Uuid = Guid.NewGuid();
             try{
-                await _cirquitRepository.CreateCirquit(dao);
+                await _circuitRepository.CreateCircuit(dao);
             }catch(Exception){
                 return null;
             }
             return dao.Uuid;
         }
 
-        public async Task<bool> DeleteCirquitHandler(Guid Uuid) {
-            return await _cirquitRepository.DeleteCirquit(Uuid);
+        public async Task<bool> DeleteCircuitHandler(Guid Uuid) {
+            return await _circuitRepository.DeleteCircuit(Uuid);
         }
 
-        public async Task<IEnumerable<ICirquitDto<ICirquitElementDto, IConnectionDto>>> GetAllCirquitsHandler() {
-            return (await _cirquitRepository.FindAllCirquits())?.Select(dao => _mapper.MapCirquitToDto(dao));
+        public async Task<IEnumerable<ICircuitDto>> GetAllCircuitsHandler() {
+            return (await _circuitRepository.FindAllCircuits())?.Select(dao => _mapper.MapCircuitToDto(dao));
         }
 
-        public async Task<ICirquitDto<ICirquitElementDto, IConnectionDto>> GetCirquitHandler(Guid Uuid) {
-        var found = await _cirquitRepository.FindCirquit(Uuid);
+        public async Task<ICircuitDto> GetCircuitHandler(Guid Uuid) {
+        var found = await _circuitRepository.FindCircuit(Uuid);
 
             if(found == null) {
                 return null;
             }else{
-                return _mapper.MapCirquitToDto(found);
+                return _mapper.MapCircuitToDto(found);
             }
 
         }
 
-        public async Task<bool> UpdateCirquitHandler(Guid Uuid, ICirquitDto<ICirquitElementDto, IConnectionDto> cirquitDto) {
-            var found = await _cirquitRepository.FindCirquit(Uuid);
+        public async Task<bool> UpdateCircuitHandler(Guid Uuid, ICircuitDto circuitDto) {
+            var found = await _circuitRepository.FindCircuit(Uuid);
             if(found == null) {
                 return false;
             }
 
-            var dao = _mapper.MapCirquitToDao(cirquitDto);
-            return await _cirquitRepository.UpdateCirquit(Uuid, dao);
+            var dao = _mapper.MapCircuitToDao(circuitDto);
+            return await _circuitRepository.UpdateCircuit(Uuid, dao);
         }
 
-        public Task<ICirquitResultDto<IQubitDto, IRegisterDto<IQubitDto>>> ExecuteCirquitHandler(Guid Uuid) {
+        public Task<ICircuitResultDto> ExecuteCircuitHandler(Guid Uuid) {
             throw new NotImplementedException();
         }
     }

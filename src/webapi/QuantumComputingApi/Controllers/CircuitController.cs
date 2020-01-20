@@ -11,28 +11,28 @@ using System.Net;
 
 namespace QuantumComputingApi.Controllers {
     [ApiController]
-    [Route("/cirquit")]
-    public class CirquitController : ControllerBase {
+    [Route("/circuit")]
+    public class CircuitController : ControllerBase {
 
-        private readonly ICirquitService _cirquitService;
+        private readonly ICircuitService _circuitService;
 
-        public CirquitController(ICirquitService service) {
-            _cirquitService = service;
+        public CircuitController(ICircuitService service) {
+            _circuitService = service;
         }
 
         [HttpGet]
-        public IActionResult GetAllCirquits () {
-            var result = _cirquitService.GetAllCirquitsHandler().Result;
+        public async Task<ActionResult<IEnumerable<ICircuitDto>>>  GetAllCircuits () {
+            var result = await _circuitService.GetAllCircuitsHandler();
 
             return new JsonResult(result){ StatusCode = (int)HttpStatusCode.OK };
         }
 
         [HttpGet]
         [Route("{Uuid}")]
-        public async Task<ActionResult<ICirquitDto<ICirquitElementDto, IConnectionDto>>> GetCirquit(
+        public async Task<ActionResult<ICircuitDto>> GetCircuit(
             [FromRoute][Required] Guid Uuid
         ) {
-            var result = await _cirquitService.GetCirquitHandler(Uuid);
+            var result = await _circuitService.GetCircuitHandler(Uuid);
 
             if(result == null) {
                 return NotFound("Could not find specified resource");
@@ -42,45 +42,45 @@ namespace QuantumComputingApi.Controllers {
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateCirquit(
-            [FromBody][Required] ICirquitDto<ICirquitElementDto, IConnectionDto> cirquitDto
+        public async Task<ActionResult> CreateCircuit(
+            [FromBody][Required] ICircuitDto circuitDto
         ) {
-            var created = await _cirquitService.CreateCirquitHandler(cirquitDto);
+            var created = await _circuitService.CreateCircuitHandler(circuitDto);
 
             if( created == null ){
                 return Conflict("Error while creating resource");
             }else{
-                return Created($"/cirquit/{created.ToString()}", created);
+                return Created($"/circuit/{created.ToString()}", created);
             }
         }
 
         [HttpPut]
         [Route("{Uuid}")]
-        public async Task<ActionResult> UpdateCirquit(
+        public async Task<ActionResult> UpdateCircuit(
             [FromRoute][Required] Guid Uuid,
-            [FromBody][Required] ICirquitDto<ICirquitElementDto, IConnectionDto> cirquitDto
+            [FromBody][Required] ICircuitDto circuitDto
         ) {
-            await _cirquitService.UpdateCirquitHandler(Uuid, cirquitDto);
+            await _circuitService.UpdateCircuitHandler(Uuid, circuitDto);
 
             return Ok();
         }
 
         [HttpDelete]
         [Route("{Uuid}")]
-        public async Task<ActionResult> DeleteCirquit(
+        public async Task<ActionResult> DeleteCircuit(
             [FromRoute][Required] Guid Uuid
         ) {
-            await _cirquitService.DeleteCirquitHandler(Uuid);
+            await _circuitService.DeleteCircuitHandler(Uuid);
 
             return Ok();
         }
 
         [HttpGet]
         [Route("{Uuid}/execute")]
-        public async Task<ActionResult<ICirquitResultDto<IQubitDto, IRegisterDto<IQubitDto>>>> ExecuteCirquit(
+        public async Task<ActionResult<ICircuitResultDto>> ExecuteCircuit(
             [FromRoute][Required] Guid Uuid
         ) {
-            var result = await _cirquitService.ExecuteCirquitHandler(Uuid);
+            var result = await _circuitService.ExecuteCircuitHandler(Uuid);
 
             return new JsonResult(result){ StatusCode = (int)HttpStatusCode.OK };
         }

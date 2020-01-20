@@ -1,16 +1,14 @@
 using Newtonsoft.Json;
 
-namespace QuantumComputingApi.Dtos.Impl.SnakeCase.Helpers {
-    public class CirquitElementDto : ICirquitElementDto {
+namespace QuantumComputingApi.Dtos.Impl.CamelCase.Helpers {
+    public class CircuitElementDto : ICircuitElementDto {
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
-
-        [JsonProperty(PropertyName = "input_count")]
+        [JsonProperty(PropertyName = "inputCount")]
         public int? InputCount { get; set; }
 
-
-        [JsonProperty(PropertyName = "output_count")]
+        [JsonProperty(PropertyName = "outputCount")]
         public int? OutputCount { get; set; }
 
         [JsonProperty(PropertyName = "type")]

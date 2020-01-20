@@ -2,13 +2,15 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using QuantumComputingApi.Dtos.Impl.CamelCase;
 using QuantumComputingApi.Dtos.Impl.CamelCase.Helpers;
+using System;
 
 namespace QuantumComputingApi.Dtos.Deserializers.Impl.CamelCase {
-    public class DtoDeserializer : IDtoDeserializer<CirquitElementDto, ConnectionDto, CirquitDto> {
+    public class DtoDeserializer : IDtoDeserializer {
 
-        public Task<CirquitDto> DeserializeFromText(string text)
+        public Task<ICircuitDto> DeserializeFromText(string text)
         {
-            return Task.FromResult(JsonConvert.DeserializeObject<CirquitDto>(text));
+            throw new NotImplementedException();
+            // return Task.FromResult((ICirquitDto)JsonConvert.DeserializeObject<CirquitDto>(text));
         }
     }
 }

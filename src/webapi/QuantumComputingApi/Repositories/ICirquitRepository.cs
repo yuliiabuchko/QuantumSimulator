@@ -5,12 +5,12 @@ using System.Collections.Generic;
 
 namespace QuantumComputingApi.Repositories
 {
-    public interface ICirquitRepository
+    public interface ICircuitRepository
     {
-        Task<IEnumerable<CirquitDao>> FindAllCirquits();
-        Task<CirquitDao> FindCirquit(Guid Uuid);
-        Task CreateCirquit(CirquitDao cirquit);
-        Task<bool> UpdateCirquit(Guid Uuid, CirquitDao cirquit);
-        Task<bool> DeleteCirquit(Guid Uuid);
+        Task<IEnumerable<CircuitDao>> FindAllCircuits();
+        Task<CircuitDao> FindCircuit(Guid Uuid);
+        Task CreateCircuit(CircuitDao circuit);
+        Task<bool> UpdateCircuit(Guid Uuid, CircuitDao circuit);
+        Task<bool> DeleteCircuit(Guid Uuid);
     }
 }

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace QuantumComputingApi.Dtos
 {
-    public interface ICirquitElementDto
+    public interface ICircuitElementDto
     {
         string Type { get; set; }
         string Id { get; set; }

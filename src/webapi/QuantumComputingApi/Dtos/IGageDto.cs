@@ -1,7 +1,7 @@
 using System.Numerics;
 
 namespace QuantumComputingApi.Dtos {
-    public interface IGageDto : ICirquitElementDto {
-        Complex [,] MatrixGate { get; set; }
+    public interface IGageDto : ICircuitElementDto {
+        string GateName { get; set; }
     }
 }

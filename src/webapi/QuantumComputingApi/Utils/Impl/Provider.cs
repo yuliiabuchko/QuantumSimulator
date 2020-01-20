@@ -13,9 +13,9 @@ namespace QuantumComputingApi.Utils.Impl
         public Provider(DtoType dtoType) {
             _dtoType = dtoType;
         }
-        public IDtoProducer<ICirquitElementDto, IConnectionDto, ICirquitDto<ICirquitElementDto, IConnectionDto>, IQubitDto, IRegisterDto<IQubitDto>, ICirquitResultDto<IQubitDto, IRegisterDto<IQubitDto>>> ProvideProducer()
+        public IDtoProducer ProvideProducer()
         {
-            object producer = null;
+            IDtoProducer producer = null;
             switch(_dtoType){
                 case DtoType.CamelCase: {
                     producer = new CamelCaseDtoProducer();
@@ -30,7 +30,7 @@ namespace QuantumComputingApi.Utils.Impl
                 }
             }
             
-            return (IDtoProducer<ICirquitElementDto, IConnectionDto, ICirquitDto<ICirquitElementDto, IConnectionDto>, IQubitDto, IRegisterDto<IQubitDto>, ICirquitResultDto<IQubitDto, IRegisterDto<IQubitDto>>>) producer;
+            return  producer;
         }
     }
 }

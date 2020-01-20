@@ -3,11 +3,11 @@ using Newtonsoft.Json;
 using QuantumComputingApi.Dtos.Impl.SnakeCase.Helpers;
 
 namespace QuantumComputingApi.Dtos.Impl.SnakeCase {
-    public class CirquitDto : ICirquitDto<CirquitElementDto, ConnectionDto> {
+    public class CircuitDto : ICircuitDto {
         [JsonProperty(PropertyName = "elements")]
-        public IEnumerable<CirquitElementDto> Elements { get; set; }
+        public IEnumerable<ICircuitElementDto> Elements { get; set; }
 
         [JsonProperty(PropertyName = "connections")]
-        public IEnumerable<ConnectionDto> Connections { get; set; }
+        public IEnumerable<IConnectionDto> Connections { get; set; }
     }
 }

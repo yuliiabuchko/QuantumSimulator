@@ -4,11 +4,8 @@ using QuantumComputingApi.Dtos;
 
 namespace QuantumComputingApi.Dtos.Serializers
 {
-    public interface IDtoSerializer<out T, out U, in Z> 
-        where T : ICirquitElementDto
-        where U : IConnectionDto
-        where Z : ICirquitDto<T,U>
+    public interface IDtoSerializer
     {
-        Task<string> SerializeToText(Z cirquitDto);
+        Task<string> SerializeToText(ICircuitDto circuitDto);
     }
 }

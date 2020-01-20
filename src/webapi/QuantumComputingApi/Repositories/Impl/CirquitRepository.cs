@@ -7,43 +7,43 @@ using QuantumComputingApi.Properties;
 using Microsoft.Extensions.Options;
 
 namespace QuantumComputingApi.Repositories.Impl {
-    public class CirquitRepository : ICirquitRepository {
+    public class CircuitRepository : ICircuitRepository {
 
-        IMongoCollection<CirquitDao> _cirquitCollection;
+        IMongoCollection<CircuitDao> _circuitCollection;
         DatabaseSettings _databaseSettings;
 
-        public CirquitRepository(IOptions<DatabaseSettings> opsettings) {
+        public CircuitRepository(IOptions<DatabaseSettings> opsettings) {
             _databaseSettings = opsettings.Value;
 
             var client = new MongoClient(_databaseSettings.ConnectionString);
             var database = client.GetDatabase(_databaseSettings.DatabaseName);
 
-            _cirquitCollection = database.GetCollection<CirquitDao>(_databaseSettings.CirquitCollectionName);
+            _circuitCollection = database.GetCollection<CircuitDao>(_databaseSettings.CircuitCollectionName);
         }
 
-        public async Task CreateCirquit(CirquitDao cirquit) {
-            await _cirquitCollection.InsertOneAsync(cirquit);
+        public async Task CreateCircuit(CircuitDao circuit) {
+            await _circuitCollection.InsertOneAsync(circuit);
         }
 
-        public async Task<bool> DeleteCirquit(Guid Uuid) {
-            var res = await _cirquitCollection.DeleteOneAsync(cirquitDao => cirquitDao.Uuid == Uuid);
+        public async Task<bool> DeleteCircuit(Guid Uuid) {
+            var res = await _circuitCollection.DeleteOneAsync(circuitDao => circuitDao.Uuid == Uuid);
             
             return res.IsAcknowledged;
         }
 
-        public async Task<IEnumerable<CirquitDao>> FindAllCirquits() {
-            return ( await _cirquitCollection.FindAsync(dao => true)).ToList();
+        public async Task<IEnumerable<CircuitDao>> FindAllCircuits() {
+            return ( await _circuitCollection.FindAsync(dao => true)).ToList();
         }
 
-        public async Task<CirquitDao> FindCirquit(Guid Uuid) {
-            return (await _cirquitCollection.FindAsync(cirquitDao => cirquitDao.Uuid == Uuid)).FirstOrDefault();
+        public async Task<CircuitDao> FindCircuit(Guid Uuid) {
+            return (await _circuitCollection.FindAsync(circuitDao => circuitDao.Uuid == Uuid)).FirstOrDefault();
         }
 
-        public async Task<bool> UpdateCirquit(Guid Uuid, CirquitDao cirquit) {
-            var filter = Builders<CirquitDao>.Filter.Eq("Uuid", Uuid);
-            var update = Builders<CirquitDao>.Update.Set("DtoString", cirquit.DtoString);
+        public async Task<bool> UpdateCircuit(Guid Uuid, CircuitDao circuit) {
+            var filter = Builders<CircuitDao>.Filter.Eq("Uuid", Uuid);
+            var update = Builders<CircuitDao>.Update.Set("DtoString", circuit.DtoString);
 
-            var res = await _cirquitCollection.UpdateOneAsync(filter, update);
+            var res = await _circuitCollection.UpdateOneAsync(filter, update);
 
             return res.IsAcknowledged;
         }

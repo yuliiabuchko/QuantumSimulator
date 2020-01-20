@@ -2,31 +2,41 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using QuantumComputingApi.Dtos.Deserializers;
 using QuantumComputingApi.Dtos.Deserializers.Impl.SnakeCase;
-using QuantumComputingApi.Dtos.Formatters;
+using QuantumComputingApi.Dtos.Deserializers.Impl.SnakeCase.Helpers;
 using QuantumComputingApi.Dtos.Impl.SnakeCase;
 using QuantumComputingApi.Dtos.Impl.SnakeCase.Helpers;
 using QuantumComputingApi.Dtos.Serializers;
 using QuantumComputingApi.Dtos.Serializers.Impl.SnakeCase;
 
 namespace QuantumComputingApi.Dtos.Producer.Impl {
-    public class SnakeCaseDtoProducer : IDtoProducer<CirquitElementDto, ConnectionDto, CirquitDto, QubitDto, RegisterDto , CirquitResultDto> {
-        public CirquitDto ProduceCirquitDto() {
-            return new CirquitDto() {
-                Elements = new List<CirquitElementDto>(),
-                    Connections = new List<ConnectionDto>()
-            };
+    public class SnakeCaseDtoProducer : IDtoProducer
+    {
+        // public ICircuitDto ProduceCircuitDto() {
+        //     return new CircuitDto() {
+        //         Elements = new List<CircuitElementDto>(),
+        //         Connections = new List<ConnectionDto>()
+        //     };
+        // }
+
+        // public ICircuitResultDto ProduceCircuitResultDto() {
+        //     return new CircuitResultDto();
+        // }
+        public IDtoDeserializer ProduceDeserializer()
+        {
+            var registerParser = new RegisterParser();
+            var gateParser = new GateParser();
+            gateParser.setNext(registerParser);
+
+            var connectionParser = new ConnectionParser();
+
+            var parser = new Parser(gateParser, connectionParser);
+            
+            return new DtoDeserializer(parser);
         }
 
-        public CirquitResultDto ProduceCirquitResultDto() {
-            return new CirquitResultDto();
-        }
-
-        public TextInputFormatter ProduceTextInputFormatter() {
-            return new DtoInputFormatter<CirquitElementDto, ConnectionDto, CirquitDto>(new DtoDeserializer());
-        }
-
-        public TextOutputFormatter ProduceTextOutputFormatter() {
-            return new DtoOutputFormatter<CirquitElementDto, ConnectionDto, CirquitDto>(new DtoSerializer());
+        public IDtoSerializer ProduceSerializer()
+        {
+            return new DtoSerializer();
         }
     }
 }

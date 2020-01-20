@@ -7,15 +7,12 @@ using Microsoft.Net.Http.Headers;
 using QuantumComputingApi.Dtos;
 using QuantumComputingApi.Dtos.Deserializers;
 
-namespace QuantumComputingApi.Dtos.Formatters {
-    public class DtoInputFormatter<T,U, Z> : TextInputFormatter
-        where T : ICirquitElementDto
-        where U : IConnectionDto
-        where Z : ICirquitDto<T, U> 
+namespace QuantumComputingApi.Formatters {
+    public class DtoInputFormatter: TextInputFormatter
     {
 
-        private readonly IDtoDeserializer<T,U,Z> _dtoDeserializer;
-        public DtoInputFormatter(IDtoDeserializer<T, U, Z> dtoDeserializer) {
+        private readonly IDtoDeserializer _dtoDeserializer;
+        public DtoInputFormatter(IDtoDeserializer dtoDeserializer) {
             _dtoDeserializer = dtoDeserializer;
             
             SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("text/json"));
@@ -27,7 +24,7 @@ namespace QuantumComputingApi.Dtos.Formatters {
 
         protected override bool CanReadType(Type type) {
 
-            if (type == typeof(ICirquitDto<ICirquitElementDto, IConnectionDto>) || type.IsSubclassOf(typeof(ICirquitDto<ICirquitElementDto, IConnectionDto>))) {
+            if (type == typeof(ICircuitDto) || type.IsSubclassOf(typeof(ICircuitDto))) {
                 return base.CanReadType(type);
             }
             return false;
@@ -48,9 +45,9 @@ namespace QuantumComputingApi.Dtos.Formatters {
                 try {
                     var textJson = await reader.ReadToEndAsync();
 
-                    var cirquit = _dtoDeserializer.DeserializeFromText(textJson);
+                    var circuit = _dtoDeserializer.DeserializeFromText(textJson);
 
-                    return await InputFormatterResult.SuccessAsync(cirquit);
+                    return await InputFormatterResult.SuccessAsync(circuit);
                 } catch {
                     return await InputFormatterResult.FailureAsync();
                 }
