@@ -1,10 +1,8 @@
-﻿
-
-using MathNet.Numerics.LinearAlgebra;
+﻿using MathNet.Numerics.LinearAlgebra;
 using System;
 using System.Numerics;
 
-namespace Lachesis.QuantumComputing.Mathematics
+namespace QuantumComputing.Mathematics
 {
 	public static class LinearAlgebra
 	{
@@ -27,7 +25,7 @@ namespace Lachesis.QuantumComputing.Mathematics
 		}
 
 		/*
-		 * Register representation of an integer
+		 * Vector representation of an integer
 		 */
 		public static Vector<Complex> VectorFromInteger(int value, int bitCount = 0)
 		{

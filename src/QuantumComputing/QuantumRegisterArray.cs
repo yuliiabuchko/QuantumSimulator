@@ -4,76 +4,90 @@ using System.Linq;
 using System.Numerics;
 using MathNet.Numerics;
 using MathNet.Numerics.LinearAlgebra;
+using MathNet.Numerics.LinearAlgebra.Complex32;
 using QuantumComputing;
 
-namespace Lachesis.QuantumComputing
+namespace QuantumComputing
 {
-    public class QuantumRegisterArray : QuantumRegisterInterface
+    public class QuantumRegisterArray : QuantumRegisterAbstract
     {
-        /*
-		 * Array representation of a quantum register
-		 */
-        public new Complex[] Register { get; protected set; }
-        public override Complex GetRegisterAt(int index)
-        {
-            return Register[index];
-        }
-		
-        public override void SetRegisterAt(int index, Complex value)
-        {
-            // todo ереробити на масив
-            Register[index] = value;
-        }
-        /*
-		 * Constructor from probability amplitudes
-		 */
-        public QuantumRegisterArray(params Complex[] array) : this((IEnumerable<Complex>)array) { }
+        public new List<Complex> Vector { get; protected set; }
 
         /*
-		 * Constructor from enumerable of probability amplitudes
-		 */
-        public QuantumRegisterArray(IEnumerable<Complex> enumerable) : this(Vector<Complex>.Build.SparseOfEnumerable(enumerable)) { }
+         * Constructor from integer
+         */
+        public QuantumRegisterArray(int value, int bitCount = 0) : this(
+            Mathematics.LinearAlgebra.VectorFromInteger(value, bitCount))
+        {
+        }
 
         /*
-		 * Constructor from register representation
-		 */
-        public QuantumRegisterArray(Vector<Complex> register)
+         * Constructor from probability amplitudes
+         */
+        public QuantumRegisterArray(params Complex[] array) : this((IEnumerable<Complex>) array)
         {
-            if ((register.Count & (register.Count - 1)) != 0)
+        }
+
+        /*
+         * Constructor from enumerable of probability amplitudes
+         */
+        public QuantumRegisterArray(IEnumerable<Complex> enumerable) : this(
+            Vector<Complex>.Build.SparseOfEnumerable(enumerable))
+        {
+        }
+
+        /*
+         * Constructor from vector representation
+         */
+        public QuantumRegisterArray(Vector<Complex> vector)
+        {
+            if ((vector.Count & (vector.Count - 1)) != 0)
             {
-                throw new ArgumentException("A quantum register can only be initialized from a register whose dimension is a power of 2.");
+                throw new ArgumentException(
+                    "A quantum register can only be initialized from a vector whose dimension is a power of 2.");
             }
-			
-            this.Register = register.ToArray();
+
+            this.Vector = new List<Complex>(vector.ToArray());
 
             this.Normalize();
         }
 
-        /*
-		 * Normalizes a quantum register
-		 */
-        public override void Normalize()
+        public QuantumRegisterArray(QuantumRegisterAbstract quantumRegisterAbstract)
         {
-            // Normalize magnitude
-            // double magnitudeFactor = Math.Sqrt(this.Register.Aggregate(0.0, (factor, amplitude) => factor + amplitude.MagnitudeSquared()));
-            // if (magnitudeFactor != 1)
-            // {
-            //     this.Register = this.Register / magnitudeFactor;
-            // }
+            var a = (QuantumRegisterVector) quantumRegisterAbstract;
+            this.Vector = new List<Complex>(a.Vector.ToArray());
         }
 
         /*
-		 * Collapses a quantum register into a pure state
-		 */
+         * Normalizes a quantum register
+         */
+        public override void Normalize()
+        {
+            // Normalize magnitude
+            double magnitudeFactor =
+                Math.Sqrt(this.Vector.Aggregate(0.0, (factor, amplitude) => factor + amplitude.MagnitudeSquared()));
+            if (magnitudeFactor != 1)
+            {
+                this.Vector = new List<Complex>(Vector<Complex>.Build.SparseOfEnumerable(this.Vector.ToArray()) /
+                                                magnitudeFactor);
+// this.Vector / magnitudeFactor;
+            }
+        }
+
+        /*
+         * Collapses a quantum register into a pure state
+         */
+
+        // TODO need
         public override void Collapse(Random random)
         {
-            Vector<Complex> collapsedVector = Vector<Complex>.Build.Sparse(this.Register.Length);
+            Vector<Complex> collapsedVector = Vector<Complex>.Build.Sparse(this.Vector.Count);
             double probabilitySum = 0d;
             double probabilityThreshold = random.NextDouble();
 
-            for (int i = 0; i < this.Register.Length; i++)
+            for (int i = 0; i < this.Vector.Count; i++)
             {
-                probabilitySum += this.Register[i].MagnitudeSquared();
+                probabilitySum += this.GetRegisterAt(i).MagnitudeSquared();
 
                 if (probabilitySum > probabilityThreshold)
                 {
@@ -82,16 +96,18 @@ namespace Lachesis.QuantumComputing
                 }
             }
 
-            this.Register = collapsedVector.ToArray();
+            this.Vector = new List<Complex>(collapsedVector);
         }
 
         /*
-		 * Returns the value contained in a quantum register, with optional portion start and length
-		 */
+         * Returns the value contained in a quantum register, with optional portion start and length
+         */
+        // TODO need
+
         public override int GetValue(int portionStart = 0, int portionLength = 0)
         {
-            int registerLength = Mathematics.Numerics.Log2(this.Register.Length - 1);
-			
+            int registerLength = Mathematics.Numerics.Log2(this.Vector.Count - 1);
+
             if (portionLength == 0)
             {
                 portionLength = registerLength - portionStart;
@@ -106,9 +122,9 @@ namespace Lachesis.QuantumComputing
 
             int index = -1;
 
-            for (int i = 0; i < this.Register.Length; i++)
+            for (int i = 0; i < this.Vector.Count; i++)
             {
-                if (this.Register[i] == 1)
+                if (this.GetRegisterAt(i) == 1)
                 {
                     index = i;
                     break;
@@ -135,17 +151,16 @@ namespace Lachesis.QuantumComputing
             return index;
         }
 
-        
         /*
-		 * String representation of a quantum register
-		 */
+         * String representation of a quantum register
+         */
         public override string ToString()
         {
             string representation = "";
 
-            for (int i = 0; i < this.Register.Length; i++)
+            for (int i = 0; i < this.Vector.Count; i++)
             {
-                Complex amplitude = this.Register[i];
+                Complex amplitude = this.GetRegisterAt(i);
 
                 if (amplitude != 0)
                 {
@@ -199,28 +214,54 @@ namespace Lachesis.QuantumComputing
         }
 
         /*
-		 * Determines whether the specified quantum register is equal to the current quantum register
-		 */
+         * Determines whether the specified quantum register is equal to the current quantum register
+         */
         public override bool Equals(object obj)
         {
-            QuantumRegisterArray quantumRegisterVector = obj as QuantumRegisterArray;
+            QuantumRegisterArray quantumRegister = obj as QuantumRegisterArray;
 
-            if (quantumRegisterVector == null || this.Register.Length != quantumRegisterVector.Register.Length)
+            if (quantumRegister == null || this.Vector.Count != quantumRegister.Vector.Count)
             {
                 return false;
             }
 
-            return this.Register.Equals(quantumRegisterVector.Register);
+            return this.Vector.Equals(quantumRegister.Vector);
         }
-        
-        
+
+        /*
+         * Determines whether the specified quantum register is equal to the current quantum register, ignoring floating-point precision issues
+         */
+        public bool AlmostEquals(object obj)
+        {
+            return true;
+        }
+
         /*
          * Serves as a hash function for a quantum register
          */
         public override int GetHashCode()
         {
-            return this.Register.GetHashCode();
+            return this.Vector.GetHashCode();
         }
 
+        public override Complex[] ToArray()
+        {
+            return Vector.ToArray();
+        }
+
+        public override Complex GetRegisterAt(int index)
+        {
+            return Vector[index];
+        }
+
+        public override void SetRegisterAt(int index, Complex value)
+        {
+            Vector[index] = value;
+        }
+
+        public override Vector<Complex> castToComplexVector()
+        {
+            return Vector<Complex>.Build.SparseOfEnumerable(this.Vector.ToArray());
+        }
     }
 }
