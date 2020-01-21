@@ -212,6 +212,15 @@ namespace Lachesis.QuantumComputing
 
             return this.Register.Equals(quantumRegisterVector.Register);
         }
+        
+        
+        /*
+         * Serves as a hash function for a quantum register
+         */
+        public override int GetHashCode()
+        {
+            return this.Register.GetHashCode();
+        }
 
     }
 }
