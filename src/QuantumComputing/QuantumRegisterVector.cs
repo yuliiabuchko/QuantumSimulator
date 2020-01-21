@@ -67,7 +67,7 @@ namespace QuantumComputing
 		/*
 		 * Normalizes a quantum register
 		 */
-		protected override void Normalize()
+		public override void Normalize()
 		{
 			// Normalize magnitude
 			double magnitudeFactor = Math.Sqrt(this.Vector.Aggregate(0.0, (factor, amplitude) => factor + amplitude.MagnitudeSquared()));
