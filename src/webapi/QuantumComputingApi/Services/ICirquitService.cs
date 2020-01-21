@@ -1,15 +1,15 @@
-using QuantumComputingApi.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System;
+using QuantumComputingApi.Dtos;
 
 namespace QuantumComputingApi.Services {
-    public interface ICirquitService {
-        Task<IEnumerable<ICirquitDto>> GetAllCirquitsHandler();
-        Task<ICirquitDto> GetCirquitHandler(Guid Id);
-        Task<ICirquitDto> CreateCirquitHandler(ICirquitDto cirquitDto);
-        Task<ICirquitDto> UpdateCirquitHandler(Guid Id, ICirquitDto cirquitDto);
-        Task DeleteCirquitHandler(Guid Id);
-        Task<ICirquitResultDto> ExecuteCirquitHandler(Guid Id);
+    public interface ICircuitService {
+        Task<IEnumerable<ICircuitDto>> GetAllCircuitsHandler();
+        Task<ICircuitDto> GetCircuitHandler(Guid Uuid);
+        Task<Guid?> CreateCircuitHandler(ICircuitDto circuitDto);
+        Task<bool> UpdateCircuitHandler(Guid Uuid, ICircuitDto circuitDto);
+        Task<bool> DeleteCircuitHandler(Guid Uuid);
+        Task<ICircuitResultDto> ExecuteCircuitHandler(Guid Uuid);
     }
 }
