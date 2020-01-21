@@ -1,7 +1,7 @@
-using QuantumComputingApi.Dtos.Impl.SnakeCase.Helpers;
+using QuantumComputingApi.Dtos.Impl.CamelCase.Helpers;
 using Newtonsoft.Json;
 
-namespace QuantumComputingApi.Dtos.Deserializers.Impl.SnakeCase.Helpers
+namespace QuantumComputingApi.Dtos.Deserializers.Impl.CamelCase.Helpers
 {
     public class GateParser : CiruitElementParser
     {
@@ -11,10 +11,10 @@ namespace QuantumComputingApi.Dtos.Deserializers.Impl.SnakeCase.Helpers
         
                 return new GateDto() {
                     Id = dynamicElement.id,
-                    InputCount = dynamicElement.input_count,
-                    OutputCount = dynamicElement.output_count,
+                    InputCount = dynamicElement.inputCount,
+                    OutputCount = dynamicElement.outputCount,
                     Type = dynamicElement.type,
-                    GateName = dynamicElement.gate_name
+                    GateName = dynamicElement.gateName
                 };
             }
 

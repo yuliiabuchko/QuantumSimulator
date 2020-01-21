@@ -1,10 +1,10 @@
-using QuantumComputingApi.Dtos.Impl.SnakeCase.Helpers;
+using QuantumComputingApi.Dtos.Impl.CamelCase.Helpers;
 using System.Collections.Generic;
 using System.Linq;
 using System;
 using System.Numerics;
 
-namespace QuantumComputingApi.Dtos.Deserializers.Impl.SnakeCase.Helpers
+namespace QuantumComputingApi.Dtos.Deserializers.Impl.CamelCase.Helpers
 {
     public class RegisterParser : CiruitElementParser
     {
@@ -28,8 +28,8 @@ namespace QuantumComputingApi.Dtos.Deserializers.Impl.SnakeCase.Helpers
 
                 return new RegisterDto() {
                     Id = dynamicElement.id,
-                    InputCount = dynamicElement.input_count,
-                    OutputCount = dynamicElement.output_count,
+                    InputCount = dynamicElement.inputCount,
+                    OutputCount = dynamicElement.outputCount,
                     Type = dynamicElement.type,
                     Qubits = mappedQubits
                 };
@@ -43,10 +43,10 @@ namespace QuantumComputingApi.Dtos.Deserializers.Impl.SnakeCase.Helpers
         }
 
         private QubitDto mapQubit (dynamic qubit) {
-            double oneReal =qubit.one_amplitude.real;
-            double oneImag =qubit.one_amplitude.imaginary;
-            double zeroReal =qubit.zero_amplitude.real;
-            double zeroImag =qubit.zero_amplitude.imaginary;
+            double oneReal =qubit.oneAmplitude.real;
+            double oneImag =qubit.oneAmplitude.imaginary;
+            double zeroReal =qubit.zeroAmplitude.real;
+            double zeroImag =qubit.zeroAmplitude.imaginary;
 
             return new QubitDto() {
                 

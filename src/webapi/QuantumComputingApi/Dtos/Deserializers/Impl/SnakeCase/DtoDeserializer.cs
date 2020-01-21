@@ -18,17 +18,45 @@ namespace QuantumComputingApi.Dtos.Deserializers.Impl.SnakeCase {
         {
              
             var data = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(text);
-            dynamic dataD = JsonConvert.DeserializeObject(text);
-            dynamic elements = dataD.elements;
-            dynamic connections = dataD.connections;
-            CircuitDto circuit = new CircuitDto() {
-                // Elements = elements.Select<dynamic, CircuitElementDto>(element => _parser.ParseCircuitElement(element)),
-                // Connections = connections.Select<dynamic, ConnectionDto>(connection => _parser.ParseConnection(connection))
+            var elements = data["elements"];
+            var connections = data["connections"];
+
+            var index = 0;
+            var mappedElements = new List<ICircuitElementDto>();
+
+            while(true) {
+                try {
+                    var mapped = _parser.ParseCircuitElement(elements[index]);
+                    mappedElements.Add(mapped);
+                    
+                    index++;
+                }catch(Exception){
+                    break;
+                }
+            }
+
+
+            index = 0;
+            var mappedConnections = new List<IConnectionDto>();
+
+            while(true) {
+                try {
+                    var mapped = _parser.ParseConnection(connections[index]);
+                    mappedConnections.Add(mapped);
+                    
+                    index++;
+                }catch(Exception){
+                    break;
+                }
+            }
+
+            ICircuitDto circuit = new CircuitDto() {
+                Elements = mappedElements,
+                Connections = mappedConnections
             };
             
-            return null;
+            
+            return Task.FromResult(circuit);
         }
-
-        //TODO : write function to iterate through dynamic and map it
     }
 }

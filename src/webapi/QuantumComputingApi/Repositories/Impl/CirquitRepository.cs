@@ -41,7 +41,11 @@ namespace QuantumComputingApi.Repositories.Impl {
 
         public async Task<bool> UpdateCircuit(Guid Uuid, CircuitDao circuit) {
             var filter = Builders<CircuitDao>.Filter.Eq("Uuid", Uuid);
-            var update = Builders<CircuitDao>.Update.Set("DtoString", circuit.DtoString);
+
+            var update = Builders<CircuitDao>
+                .Update
+                .Set("Elements", circuit.Elements)
+                .Set("Connections", circuit.Connections);
 
             var res = await _circuitCollection.UpdateOneAsync(filter, update);
 

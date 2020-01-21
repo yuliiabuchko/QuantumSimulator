@@ -9,20 +9,16 @@ using QuantumComputingApi.Dtos.Serializers;
 using QuantumComputingApi.Dtos.Serializers.Impl.SnakeCase;
 
 namespace QuantumComputingApi.Dtos.Producer.Impl {
-    public class SnakeCaseDtoProducer : IDtoProducer
-    {
-        // public ICircuitDto ProduceCircuitDto() {
-        //     return new CircuitDto() {
-        //         Elements = new List<CircuitElementDto>(),
-        //         Connections = new List<ConnectionDto>()
-        //     };
-        // }
+    public class SnakeCaseDtoProducer : IDtoProducer {
+        public ICircuitDto ProduceCircuitDto() {
+            return new CircuitDto();
+        }
 
-        // public ICircuitResultDto ProduceCircuitResultDto() {
-        //     return new CircuitResultDto();
-        // }
-        public IDtoDeserializer ProduceDeserializer()
-        {
+        public IConnectionDto ProduceConnectionDto() {
+            return new ConnectionDto();
+        }
+
+        public IDtoDeserializer ProduceDeserializer() {
             var registerParser = new RegisterParser();
             var gateParser = new GateParser();
             gateParser.setNext(registerParser);
@@ -30,13 +26,28 @@ namespace QuantumComputingApi.Dtos.Producer.Impl {
             var connectionParser = new ConnectionParser();
 
             var parser = new Parser(gateParser, connectionParser);
-            
+
             return new DtoDeserializer(parser);
         }
 
-        public IDtoSerializer ProduceSerializer()
-        {
+        public IGageDto ProduceGateDto() {
+            return new GateDto();
+        }
+
+        public IQubitDto ProduceQubitDto() {
+            return new QubitDto();
+        }
+
+        public IRegisterDto ProduceRegisterDto() {
+            return new RegisterDto();
+        }
+
+        public IDtoSerializer ProduceSerializer() {
             return new DtoSerializer();
+        }
+
+        public IComplexDto ProduceComplexDto() {
+            return new ComplexDto();
         }
     }
 }

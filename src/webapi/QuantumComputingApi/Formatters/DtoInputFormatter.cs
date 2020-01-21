@@ -45,7 +45,7 @@ namespace QuantumComputingApi.Formatters {
                 try {
                     var textJson = await reader.ReadToEndAsync();
 
-                    var circuit = _dtoDeserializer.DeserializeFromText(textJson);
+                    var circuit = await _dtoDeserializer.DeserializeFromText(textJson);
 
                     return await InputFormatterResult.SuccessAsync(circuit);
                 } catch {

@@ -8,6 +8,5 @@ namespace QuantumComputingApi.Dtos.Serializers.Impl.SnakeCase {
         public Task<string> SerializeToText(ICircuitDto circuitDto) {
             return Task.FromResult(JsonConvert.SerializeObject(circuitDto));
         }
-
     }
 }

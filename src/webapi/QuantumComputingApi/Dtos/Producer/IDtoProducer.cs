@@ -8,5 +8,11 @@ namespace QuantumComputingApi.Dtos.Producer {
         IDtoDeserializer ProduceDeserializer();
         IDtoSerializer ProduceSerializer();
 
+        ICircuitDto ProduceCircuitDto();
+        IGageDto ProduceGateDto();
+        IRegisterDto ProduceRegisterDto();
+        IConnectionDto ProduceConnectionDto();
+        IQubitDto ProduceQubitDto();
+        IComplexDto ProduceComplexDto();
     }
 }

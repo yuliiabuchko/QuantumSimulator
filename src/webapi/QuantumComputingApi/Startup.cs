@@ -43,7 +43,9 @@ namespace QuantumComputingApi {
             services.AddTransient<ICircuitRepository, CircuitRepository>();
             
             services.AddTransient<Mapper>(sp =>
-                new Mapper());
+                new Mapper(
+                    sp.GetRequiredService<IProvider>().ProvideProducer()
+                ));
             
             
             services.AddControllers();

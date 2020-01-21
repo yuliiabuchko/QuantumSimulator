@@ -1,4 +1,4 @@
-namespace QuantumComputingApi.Dtos.Deserializers.Impl.SnakeCase.Helpers
+namespace QuantumComputingApi.Dtos.Deserializers.Impl.CamelCase.Helpers
 {
     public class Parser
     {

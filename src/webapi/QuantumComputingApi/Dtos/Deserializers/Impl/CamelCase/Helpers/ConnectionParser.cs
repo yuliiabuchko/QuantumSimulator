@@ -1,15 +1,15 @@
-using QuantumComputingApi.Dtos.Impl.SnakeCase.Helpers;
+using QuantumComputingApi.Dtos.Impl.CamelCase.Helpers;
 using System.Collections.Generic;
 using System;
 
-namespace QuantumComputingApi.Dtos.Deserializers.Impl.SnakeCase.Helpers
+namespace QuantumComputingApi.Dtos.Deserializers.Impl.CamelCase.Helpers
 {
     public class ConnectionParser
     {
         public IConnectionDto ParseConnection(dynamic dynamicConnection) {
                 List<int?> mappedLeft = new List<int?>();
                 var index = 0;
-                var left = dynamicConnection.left_entries;
+                var left = dynamicConnection.leftEntries;
 
                 while(true) {
                     try{
@@ -24,7 +24,7 @@ namespace QuantumComputingApi.Dtos.Deserializers.Impl.SnakeCase.Helpers
 
                 List<int?> mappedRight = new List<int?>();
                 index = 0;
-                var right = dynamicConnection.right_entries;
+                var right = dynamicConnection.rightEntries;
 
                 while(true) {
                     try{
@@ -36,8 +36,8 @@ namespace QuantumComputingApi.Dtos.Deserializers.Impl.SnakeCase.Helpers
                     }
                 }
             return new ConnectionDto() {
-                IdLeft = dynamicConnection.id_left,
-                IdRight = dynamicConnection.id_right,
+                IdLeft = dynamicConnection.idLeft,
+                IdRight = dynamicConnection.idRight,
                 LeftEntries = mappedLeft,
                 RightEntries = mappedRight
             };

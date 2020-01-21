@@ -37,7 +37,8 @@ namespace QuantumComputingApi.Controllers {
             if(result == null) {
                 return NotFound("Could not find specified resource");
             }else{
-                return new JsonResult(result){ StatusCode = (int)HttpStatusCode.OK };
+                return Ok(result);
+                //return new JsonResult(result){ StatusCode = (int)HttpStatusCode.OK };
             }
         }
 
