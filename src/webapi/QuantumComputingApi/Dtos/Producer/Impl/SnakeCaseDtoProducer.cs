@@ -9,16 +9,16 @@ using QuantumComputingApi.Dtos.Serializers;
 using QuantumComputingApi.Dtos.Serializers.Impl.SnakeCase;
 
 namespace QuantumComputingApi.Dtos.Producer.Impl {
-    public class SnakeCaseDtoProducer : IDtoProducer {
-        public ICircuitDto ProduceCircuitDto() {
+    public class SnakeCaseDtoProducer : DtoProducerBase {
+        public override ICircuitDto ProduceCircuitDto() {
             return new CircuitDto();
         }
 
-        public IConnectionDto ProduceConnectionDto() {
+        public override IConnectionDto ProduceConnectionDto() {
             return new ConnectionDto();
         }
 
-        public IDtoDeserializer ProduceDeserializer() {
+        public override IDtoDeserializer ProduceDeserializer() {
             var registerParser = new RegisterParser();
             var gateParser = new GateParser();
             gateParser.setNext(registerParser);
@@ -30,24 +30,34 @@ namespace QuantumComputingApi.Dtos.Producer.Impl {
             return new DtoDeserializer(parser);
         }
 
-        public IGageDto ProduceGateDto() {
+        public override IGageDto ProduceGateDto() {
             return new GateDto();
         }
 
-        public IQubitDto ProduceQubitDto() {
+        public override IQubitDto ProduceQubitDto() {
             return new QubitDto();
         }
 
-        public IRegisterDto ProduceRegisterDto() {
+        public override IRegisterDto ProduceRegisterDto() {
             return new RegisterDto();
         }
 
-        public IDtoSerializer ProduceSerializer() {
+        public override IDtoSerializer ProduceSerializer() {
             return new DtoSerializer();
         }
 
-        public IComplexDto ProduceComplexDto() {
+        public override IComplexDto ProduceComplexDto() {
             return new ComplexDto();
         }
+
+        public override ICircuitResultDto ProcudeCircuitResultDto()
+        {
+            return new CircuitResultDto();
+        }
+
+        // protected override DtoProducerBase CreateInstance()
+        // {
+        //     return new SnakeCaseDtoProducer();
+        // }
     }
 }

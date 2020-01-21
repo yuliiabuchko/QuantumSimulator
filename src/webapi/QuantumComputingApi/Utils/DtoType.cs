@@ -1,8 +1,8 @@
-namespace QuantumComputingApi.Utils
-{
-    public enum DtoType
-    {
-        SnakeCase,
-        CamelCase
-    }
-}
+// namespace QuantumComputingApi.Utils
+// {
+//     public enum DtoType
+//     {
+//         SnakeCase,
+//         CamelCase
+//     }
+// }

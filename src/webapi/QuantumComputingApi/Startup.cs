@@ -19,7 +19,6 @@ using QuantumComputingApi.Properties;
 using QuantumComputingApi.Services;
 using QuantumComputingApi.Services.Impl;
 using QuantumComputingApi.Utils;
-using QuantumComputingApi.Utils.Impl;
 using QuantumComputingApi.Repositories;
 using QuantumComputingApi.Repositories.Impl;
 
@@ -36,15 +35,17 @@ namespace QuantumComputingApi {
 
             services.Configure<DatabaseSettings> (Configuration.GetSection(nameof(DatabaseSettings)));
             
-            services.AddTransient<IProvider>(sp =>
-                new Provider(DtoType.SnakeCase));
+            // services.AddTransient<IProvider>(sp =>
+            //     new Provider(DtoType.SnakeCase));
 
-            services.AddTransient<ICircuitService, CircuitService>();
-            services.AddTransient<ICircuitRepository, CircuitRepository>();
+            services.AddSingleton<DtoProducerBase, SnakeCaseDtoProducer>();
+
+            services.AddSingleton<ICircuitService, CircuitService>();
+            services.AddSingleton<ICircuitRepository, CircuitRepository>();
             
             services.AddTransient<Mapper>(sp =>
                 new Mapper(
-                    sp.GetRequiredService<IProvider>().ProvideProducer()
+                    sp.GetRequiredService<DtoProducerBase>()
                 ));
             
             
@@ -52,7 +53,7 @@ namespace QuantumComputingApi {
             services.AddMvc();
 
             services.AddMvc(options => {
-                var prod = services.BuildServiceProvider().GetRequiredService<IProvider>().ProvideProducer();
+                var prod = services.BuildServiceProvider().GetRequiredService<DtoProducerBase>();
                 options.InputFormatters.Insert(0, new DtoInputFormatter(prod.ProduceDeserializer()));
                 options.OutputFormatters.Insert(0, new DtoOutputFormatter(prod.ProduceSerializer()));
             });

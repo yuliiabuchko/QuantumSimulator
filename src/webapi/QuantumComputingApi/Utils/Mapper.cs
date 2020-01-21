@@ -12,9 +12,9 @@ using System.Numerics;
 namespace QuantumComputingApi.Utils {
     public class Mapper {
 
-        private readonly IDtoProducer _producer;
+        private readonly DtoProducerBase _producer;
 
-        public Mapper(IDtoProducer producer) {
+        public Mapper(DtoProducerBase producer) {
             _producer = producer;
         }
 

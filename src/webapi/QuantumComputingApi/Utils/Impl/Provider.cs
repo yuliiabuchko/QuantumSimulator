@@ -1,36 +1,36 @@
-using QuantumComputingApi.Dtos;
-using QuantumComputingApi.Dtos.Producer;
-using QuantumComputingApi.Dtos.Producer.Impl;
-using QuantumComputingApi.Utils;
-using System;
+// using QuantumComputingApi.Dtos;
+// using QuantumComputingApi.Dtos.Producer;
+// using QuantumComputingApi.Dtos.Producer.Impl;
+// using QuantumComputingApi.Utils;
+// using System;
 
-namespace QuantumComputingApi.Utils.Impl
-{
-    public class Provider : IProvider
-    {
-        private readonly DtoType _dtoType;
+// namespace QuantumComputingApi.Utils.Impl
+// {
+//     public class Provider : IProvider
+//     {
+//         private readonly DtoType _dtoType;
 
-        public Provider(DtoType dtoType) {
-            _dtoType = dtoType;
-        }
-        public IDtoProducer ProvideProducer()
-        {
-            IDtoProducer producer = null;
-            switch(_dtoType){
-                case DtoType.CamelCase: {
-                    producer = new CamelCaseDtoProducer();
-                    break;
-                }
-                case DtoType.SnakeCase: {
-                    producer = new SnakeCaseDtoProducer();
-                    break;
-                }
-                default: {
-                    throw new InvalidOperationException($"No support for {_dtoType.ToString()} is providden.");
-                }
-            }
+//         public Provider(DtoType dtoType) {
+//             _dtoType = dtoType;
+//         }
+//         public DtoProducerBase ProvideProducer()
+//         {
+//             DtoProducerBase producer = null;
+//             switch(_dtoType){
+//                 case DtoType.CamelCase: {
+//                     producer = new CamelCaseDtoProducer();
+//                     break;
+//                 }
+//                 case DtoType.SnakeCase: {
+//                     producer = new SnakeCaseDtoProducer();
+//                     break;
+//                 }
+//                 default: {
+//                     throw new InvalidOperationException($"No support for {_dtoType.ToString()} is providden.");
+//                 }
+//             }
             
-            return  producer;
-        }
-    }
-}
+//             return  producer;
+//         }
+//     }
+// }
