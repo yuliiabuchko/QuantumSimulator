@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using QuantumComputingApi.Daos;
 using QuantumComputingApi.Dtos;
 using QuantumComputingApi.Dtos.Producer;
 using QuantumComputingApi.Repositories;
-using System.Linq;
 using QuantumComputingApi.Utils;
 
 namespace QuantumComputingApi.Services.Impl {
@@ -23,9 +23,9 @@ namespace QuantumComputingApi.Services.Impl {
         public async Task<Guid?> CreateCircuitHandler(ICircuitDto circuitDto) {
             var dao = _mapper.MapCircuitToDao(circuitDto);
             dao.Uuid = Guid.NewGuid();
-            try{
+            try {
                 await _circuitRepository.CreateCircuit(dao);
-            }catch(Exception){
+            } catch (Exception) {
                 return null;
             }
             return dao.Uuid;
@@ -40,11 +40,11 @@ namespace QuantumComputingApi.Services.Impl {
         }
 
         public async Task<ICircuitDto> GetCircuitHandler(Guid Uuid) {
-        var found = await _circuitRepository.FindCircuit(Uuid);
+            var found = await _circuitRepository.FindCircuit(Uuid);
 
-            if(found == null) {
+            if (found == null) {
                 return null;
-            }else{
+            } else {
                 return _mapper.MapCircuitToDto(found);
             }
 
@@ -52,7 +52,7 @@ namespace QuantumComputingApi.Services.Impl {
 
         public async Task<bool> UpdateCircuitHandler(Guid Uuid, ICircuitDto circuitDto) {
             var found = await _circuitRepository.FindCircuit(Uuid);
-            if(found == null) {
+            if (found == null) {
                 return false;
             }
 
@@ -61,7 +61,7 @@ namespace QuantumComputingApi.Services.Impl {
         }
 
         public async Task<ICircuitResultDto> ExecuteCircuitHandler(Guid Uuid) {
-            
+
             /*
                 Here should be implemented the usage of the simulator library to execute quantum cirquit represented by 
                 cirquitDao found in database. 
@@ -70,12 +70,12 @@ namespace QuantumComputingApi.Services.Impl {
 
             var circuitDao = await _circuitRepository.FindCircuit(Uuid);
 
-            if(circuitDao == null) {
+            if (circuitDao == null) {
                 return null;
             }
 
             //Todo: Here some operations to simulate circuit
-            
+
             //temporarily return fake result
             var result = _producer.ProcudeCircuitResultDto();
             result.ResultingRegister = _producer.ProduceRegisterDto();

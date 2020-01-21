@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using QuantumComputingApi.Daos;
-using MongoDB.Driver;
-using QuantumComputingApi.Properties;
 using Microsoft.Extensions.Options;
+using MongoDB.Driver;
+using QuantumComputingApi.Daos;
+using QuantumComputingApi.Properties;
 
 namespace QuantumComputingApi.Repositories.Impl {
     public class CircuitRepository : ICircuitRepository {
@@ -27,12 +27,12 @@ namespace QuantumComputingApi.Repositories.Impl {
 
         public async Task<bool> DeleteCircuit(Guid Uuid) {
             var res = await _circuitCollection.DeleteOneAsync(circuitDao => circuitDao.Uuid == Uuid);
-            
+
             return res.IsAcknowledged;
         }
 
         public async Task<IEnumerable<CircuitDao>> FindAllCircuits() {
-            return ( await _circuitCollection.FindAsync(dao => true)).ToList();
+            return (await _circuitCollection.FindAsync(dao => true)).ToList();
         }
 
         public async Task<CircuitDao> FindCircuit(Guid Uuid) {

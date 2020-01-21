@@ -1,14 +1,11 @@
-using QuantumComputingApi.Dtos.Impl.CamelCase.Helpers;
 using Newtonsoft.Json;
+using QuantumComputingApi.Dtos.Impl.CamelCase.Helpers;
 
-namespace QuantumComputingApi.Dtos.Deserializers.Impl.CamelCase.Helpers
-{
-    public class GateParser : CiruitElementParser
-    {
-        public override ICircuitElementDto ParseCircuitElement(dynamic dynamicElement)
-        {
+namespace QuantumComputingApi.Dtos.Deserializers.Impl.CamelCase.Helpers {
+    public class GateParser : CiruitElementParser {
+        public override ICircuitElementDto ParseCircuitElement(dynamic dynamicElement) {
             if (dynamicElement.type == "gate") {
-        
+
                 return new GateDto() {
                     Id = dynamicElement.id,
                     InputCount = dynamicElement.inputCount,
@@ -18,7 +15,7 @@ namespace QuantumComputingApi.Dtos.Deserializers.Impl.CamelCase.Helpers
                 };
             }
 
-            if(_nextParser != null) {
+            if (_nextParser != null) {
                 return _nextParser.ParseCircuitElement(dynamicElement);
             }
 

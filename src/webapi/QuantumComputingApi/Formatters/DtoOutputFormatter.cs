@@ -8,8 +8,7 @@ using QuantumComputingApi.Dtos;
 using QuantumComputingApi.Dtos.Serializers;
 
 namespace QuantumComputingApi.Formatters {
-    public class DtoOutputFormatter : TextOutputFormatter
-        {
+    public class DtoOutputFormatter : TextOutputFormatter {
 
         private readonly IDtoSerializer _dtoSerializer;
         public DtoOutputFormatter(IDtoSerializer dtoSerializer) {

@@ -1,13 +1,11 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel.DataAnnotations;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using QuantumComputingApi.Dtos;
 using QuantumComputingApi.Services;
-using System.Net;
 
 namespace QuantumComputingApi.Controllers {
     [ApiController]
@@ -21,10 +19,10 @@ namespace QuantumComputingApi.Controllers {
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ICircuitDto>>>  GetAllCircuits () {
+        public async Task<ActionResult<IEnumerable<ICircuitDto>>> GetAllCircuits() {
             var result = await _circuitService.GetAllCircuitsHandler();
 
-            return new JsonResult(result){ StatusCode = (int)HttpStatusCode.OK };
+            return new JsonResult(result) { StatusCode = (int)HttpStatusCode.OK };
         }
 
         [HttpGet]
@@ -34,9 +32,9 @@ namespace QuantumComputingApi.Controllers {
         ) {
             var result = await _circuitService.GetCircuitHandler(Uuid);
 
-            if(result == null) {
+            if (result == null) {
                 return NotFound("Could not find specified resource");
-            }else{
+            } else {
                 return Ok(result);
                 //return new JsonResult(result){ StatusCode = (int)HttpStatusCode.OK };
             }
@@ -48,9 +46,9 @@ namespace QuantumComputingApi.Controllers {
         ) {
             var created = await _circuitService.CreateCircuitHandler(circuitDto);
 
-            if( created == null ){
+            if (created == null) {
                 return Conflict("Error while creating resource");
-            }else{
+            } else {
                 return Created($"/circuit/{created.ToString()}", created);
             }
         }
@@ -58,8 +56,7 @@ namespace QuantumComputingApi.Controllers {
         [HttpPut]
         [Route("{Uuid}")]
         public async Task<ActionResult> UpdateCircuit(
-            [FromRoute][Required] Guid Uuid,
-            [FromBody][Required] ICircuitDto circuitDto
+            [FromRoute][Required] Guid Uuid, [FromBody][Required] ICircuitDto circuitDto
         ) {
             await _circuitService.UpdateCircuitHandler(Uuid, circuitDto);
 
@@ -83,7 +80,7 @@ namespace QuantumComputingApi.Controllers {
         ) {
             var result = await _circuitService.ExecuteCircuitHandler(Uuid);
 
-            return new JsonResult(result){ StatusCode = (int)HttpStatusCode.OK };
+            return new JsonResult(result) { StatusCode = (int)HttpStatusCode.OK };
         }
     }
 }

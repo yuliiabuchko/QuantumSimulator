@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using QuantumComputingApi.Dtos.Impl.CamelCase.Helpers;
 
 namespace QuantumComputingApi.Dtos.Impl.CamelCase {
     public class CircuitDto : ICircuitDto

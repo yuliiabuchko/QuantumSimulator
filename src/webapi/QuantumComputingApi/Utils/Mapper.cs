@@ -1,13 +1,7 @@
-using System;
-using System.Threading.Tasks;
+using System.Linq;
 using QuantumComputingApi.Daos;
 using QuantumComputingApi.Dtos;
-using System.Collections.Generic;
-using System.Linq;
-using QuantumComputingApi.Dtos.Deserializers;
 using QuantumComputingApi.Dtos.Producer;
-using QuantumComputingApi.Dtos.Serializers;
-using System.Numerics;
 
 namespace QuantumComputingApi.Utils {
     public class Mapper {
@@ -49,10 +43,10 @@ namespace QuantumComputingApi.Utils {
 
             ICircuitElementDto dto = null;
 
-            if(dao.Type == "register"){
+            if (dao.Type == "register") {
                 dto = _producer.ProduceRegisterDto();
                 ((IRegisterDto)dto).Qubits = ((RegisterDao)dao).Qubits.Select(dao => mapQubitToDto(dao));
-            } else if(dao.Type == "gate") {
+            } else if (dao.Type == "gate") {
                 dto = _producer.ProduceGateDto();
                 ((IGageDto)dto).GateName = ((GateDao)dao).GateName;
             }
@@ -78,7 +72,7 @@ namespace QuantumComputingApi.Utils {
 
             dto.OneAmplitude = oneAmplitude;
             dto.ZeroAmplitude = zeroAmplitude;
-        
+
             return dto;
         }
 
@@ -91,15 +85,15 @@ namespace QuantumComputingApi.Utils {
             };
         }
 
-        private CircuitElementDao mapElementToDao (ICircuitElementDto dto) {
+        private CircuitElementDao mapElementToDao(ICircuitElementDto dto) {
             CircuitElementDao dao = null;
-            if(dto.Type == "register") {
+            if (dto.Type == "register") {
                 dao = new RegisterDao() {
-                    Qubits = ((IRegisterDto)dto).Qubits.Select(qubit => mapQubitToDao(qubit))
+                Qubits = ((IRegisterDto)dto).Qubits.Select(qubit => mapQubitToDao(qubit))
                 };
-            }else if(dto.Type == "gate") {
+            } else if (dto.Type == "gate") {
                 dao = new GateDao() {
-                    GateName = ((IGageDto)dto).GateName
+                GateName = ((IGageDto)dto).GateName
                 };
             }
 
@@ -107,7 +101,7 @@ namespace QuantumComputingApi.Utils {
             dao.Id = dto.Id;
             dao.InputCount = dto.InputCount;
             dao.OutputCount = dto.OutputCount;
-            
+
             return dao;
         }
 

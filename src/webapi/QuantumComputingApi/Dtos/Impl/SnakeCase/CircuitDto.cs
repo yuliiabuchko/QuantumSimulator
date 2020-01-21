@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using QuantumComputingApi.Dtos.Impl.SnakeCase.Helpers;
 
 namespace QuantumComputingApi.Dtos.Impl.SnakeCase {
     public class CircuitDto : ICircuitDto {

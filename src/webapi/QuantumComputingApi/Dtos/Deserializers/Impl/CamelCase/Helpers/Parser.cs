@@ -1,7 +1,5 @@
-namespace QuantumComputingApi.Dtos.Deserializers.Impl.CamelCase.Helpers
-{
-    public class Parser
-    {
+namespace QuantumComputingApi.Dtos.Deserializers.Impl.CamelCase.Helpers {
+    public class Parser {
         private CiruitElementParser _circuitElementParser;
         private ConnectionParser _connectionParser;
 
@@ -10,7 +8,7 @@ namespace QuantumComputingApi.Dtos.Deserializers.Impl.CamelCase.Helpers
             _connectionParser = connectionParser;
         }
 
-        public ICircuitElementDto ParseCircuitElement (dynamic element) {
+        public ICircuitElementDto ParseCircuitElement(dynamic element) {
             return _circuitElementParser.ParseCircuitElement(element);
         }
 

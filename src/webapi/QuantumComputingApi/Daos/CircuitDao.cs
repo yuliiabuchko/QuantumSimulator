@@ -8,9 +8,7 @@ namespace QuantumComputingApi.Daos {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-
         public Guid Uuid;
-
         public IEnumerable<CircuitElementDao> Elements { get; set; }
         public IEnumerable<ConnectionDao> Connections { get; set; }
     }

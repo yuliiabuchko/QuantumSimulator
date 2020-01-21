@@ -1,27 +1,24 @@
-using QuantumComputingApi.Dtos.Impl.CamelCase.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 using System.Numerics;
+using QuantumComputingApi.Dtos.Impl.CamelCase.Helpers;
 
-namespace QuantumComputingApi.Dtos.Deserializers.Impl.CamelCase.Helpers
-{
-    public class RegisterParser : CiruitElementParser
-    {
-        public override ICircuitElementDto ParseCircuitElement(dynamic dynamicElement)
-        {
+namespace QuantumComputingApi.Dtos.Deserializers.Impl.CamelCase.Helpers {
+    public class RegisterParser : CiruitElementParser {
+        public override ICircuitElementDto ParseCircuitElement(dynamic dynamicElement) {
             if (dynamicElement.type == "register") {
 
                 List<IQubitDto> mappedQubits = new List<IQubitDto>();
                 var index = 0;
                 var dynamicQubits = dynamicElement.qubits;
 
-                while(true) {
-                    try{
+                while (true) {
+                    try {
                         var mappedQubit = mapQubit(dynamicQubits[index]);
                         mappedQubits.Add(mappedQubit);
                         index++;
-                    }catch(Exception){
+                    } catch (Exception) {
                         break;
                     }
                 }
@@ -35,21 +32,21 @@ namespace QuantumComputingApi.Dtos.Deserializers.Impl.CamelCase.Helpers
                 };
             }
 
-            if(_nextParser != null){
+            if (_nextParser != null) {
                 return _nextParser.ParseCircuitElement(dynamicElement);
             }
 
             return null;
         }
 
-        private QubitDto mapQubit (dynamic qubit) {
-            double oneReal =qubit.oneAmplitude.real;
-            double oneImag =qubit.oneAmplitude.imaginary;
-            double zeroReal =qubit.zeroAmplitude.real;
-            double zeroImag =qubit.zeroAmplitude.imaginary;
+        private QubitDto mapQubit(dynamic qubit) {
+            double oneReal = qubit.oneAmplitude.real;
+            double oneImag = qubit.oneAmplitude.imaginary;
+            double zeroReal = qubit.zeroAmplitude.real;
+            double zeroImag = qubit.zeroAmplitude.imaginary;
 
             return new QubitDto() {
-                
+
                 OneAmplitude = new ComplexDto() {
                     Real = oneReal,
                     Imaginary = oneImag

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using QuantumComputingApi.Dtos.Deserializers;
 using QuantumComputingApi.Dtos.Deserializers.Impl.SnakeCase;
 using QuantumComputingApi.Dtos.Deserializers.Impl.SnakeCase.Helpers;
@@ -50,8 +48,7 @@ namespace QuantumComputingApi.Dtos.Producer.Impl {
             return new ComplexDto();
         }
 
-        public override ICircuitResultDto ProcudeCircuitResultDto()
-        {
+        public override ICircuitResultDto ProcudeCircuitResultDto() {
             return new CircuitResultDto();
         }
 

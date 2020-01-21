@@ -8,13 +8,12 @@ using QuantumComputingApi.Dtos;
 using QuantumComputingApi.Dtos.Deserializers;
 
 namespace QuantumComputingApi.Formatters {
-    public class DtoInputFormatter: TextInputFormatter
-    {
+    public class DtoInputFormatter : TextInputFormatter {
 
         private readonly IDtoDeserializer _dtoDeserializer;
         public DtoInputFormatter(IDtoDeserializer dtoDeserializer) {
             _dtoDeserializer = dtoDeserializer;
-            
+
             SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("text/json"));
             SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("application/json"));
 

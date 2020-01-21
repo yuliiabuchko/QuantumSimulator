@@ -1,11 +1,9 @@
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using System;
-using QuantumComputingApi.Dtos.Impl.CamelCase;
-using QuantumComputingApi.Dtos.Impl.CamelCase.Helpers;
-using System.Collections.Generic;
-using System.Linq;
 using QuantumComputingApi.Dtos.Deserializers.Impl.CamelCase.Helpers;
+using QuantumComputingApi.Dtos.Impl.CamelCase;
 
 namespace QuantumComputingApi.Dtos.Deserializers.Impl.CamelCase {
     public class DtoDeserializer : IDtoDeserializer {
@@ -14,9 +12,8 @@ namespace QuantumComputingApi.Dtos.Deserializers.Impl.CamelCase {
         public DtoDeserializer(Parser parser) {
             _parser = parser;
         }
-        public Task<ICircuitDto> DeserializeFromText(string text)
-        {
-             
+        public Task<ICircuitDto> DeserializeFromText(string text) {
+
             var data = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(text);
             var elements = data["elements"];
             var connections = data["connections"];
@@ -24,28 +21,27 @@ namespace QuantumComputingApi.Dtos.Deserializers.Impl.CamelCase {
             var index = 0;
             var mappedElements = new List<ICircuitElementDto>();
 
-            while(true) {
+            while (true) {
                 try {
                     var mapped = _parser.ParseCircuitElement(elements[index]);
                     mappedElements.Add(mapped);
-                    
+
                     index++;
-                }catch(Exception){
+                } catch (Exception) {
                     break;
                 }
             }
 
-
             index = 0;
             var mappedConnections = new List<IConnectionDto>();
 
-            while(true) {
+            while (true) {
                 try {
                     var mapped = _parser.ParseConnection(connections[index]);
                     mappedConnections.Add(mapped);
-                    
+
                     index++;
-                }catch(Exception){
+                } catch (Exception) {
                     break;
                 }
             }
@@ -54,8 +50,7 @@ namespace QuantumComputingApi.Dtos.Deserializers.Impl.CamelCase {
                 Elements = mappedElements,
                 Connections = mappedConnections
             };
-            
-            
+
             return Task.FromResult(circuit);
         }
     }
