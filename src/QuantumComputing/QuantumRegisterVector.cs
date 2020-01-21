@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -67,7 +67,7 @@ namespace QuantumComputing
 		/*
 		 * Normalizes a quantum register
 		 */
-		public override void Normalize()
+		protected override void Normalize()
 		{
 			// Normalize magnitude
 			double magnitudeFactor = Math.Sqrt(this.Vector.Aggregate(0.0, (factor, amplitude) => factor + amplitude.MagnitudeSquared()));
@@ -80,8 +80,6 @@ namespace QuantumComputing
 		/*
 		 * Collapses a quantum register into a pure state
 		 */
-		
-		// TODO need
 		public override void Collapse(Random random)
 		{
 			Vector<Complex> collapsedVector = Vector<Complex>.Build.Sparse(this.Vector.Count);
