@@ -6,7 +6,7 @@ using System.Linq;
 using System.Numerics;
 using QuantumComputing;
 
-namespace Lachesis.QuantumComputing
+namespace QuantumComputing
 {
 	public class QuantumGate
 	{
@@ -160,11 +160,20 @@ namespace Lachesis.QuantumComputing
 				{ 0, Mathematics.Numerics.ComplexExp(Complex.ImaginaryOne * phase)},
 			});
 		}
+		// TODO need
 
-		/*
+        public static QuantumGate Rotation(double angle)
+        {
+            return new QuantumGate(new Complex[,] {
+                { Math.Cos(angle/2), Math.Sin(angle/2)*Complex.ImaginaryOne*(-1) },
+                { Math.Sin(angle/2)*Complex.ImaginaryOne*(-1), Math.Cos(angle/2)},
+            });
+        }
+
+        /*
 		 * Swap gate
 		 */
-		public static QuantumGate SwapGate
+        public static QuantumGate SwapGate
 		{
 			get
 			{
@@ -293,9 +302,21 @@ namespace Lachesis.QuantumComputing
 		/*
 		 * Operator to apply a quantum gate to a quantum register
 		 */
-		public static QuantumRegisterInterface operator *(QuantumGate quantumGate, QuantumRegisterVector quantumRegisterVector)
+		// TODO need
+
+		public static QuantumRegisterVector operator *(QuantumGate quantumGate, QuantumRegisterVector quantumRegister)
 		{
-			return new QuantumRegisterVector(quantumGate.Matrix * quantumRegisterVector.Register);
+			return new QuantumRegisterVector(quantumGate.Matrix * quantumRegister.castToComplexVector());
+		}
+		
+		public static QuantumRegisterArray operator *(QuantumGate quantumGate, QuantumRegisterArray quantumRegister)
+		{
+			return new QuantumRegisterArray(quantumGate.Matrix * quantumRegister.castToComplexVector());
+		}
+
+		public static QuantumRegisterVector operator *(QuantumGate quantumGate, QuantumRegisterAbstract quantumRegister)
+		{
+			return new QuantumRegisterVector(quantumGate.Matrix * quantumRegister.castToComplexVector());
 		}
 
 		/*
